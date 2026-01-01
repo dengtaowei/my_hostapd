@@ -326,3 +326,72 @@ echo 0 > options/func_stack_trace
    6) ! 102.987 us  |      }
    6) ! 103.678 us  |    }
    6) ! 167.874 us  |  }
+
+
+   应用层数据
+    ↓
+ieee80211_subif_start_xmit()          # 入口函数
+    ↓
+__ieee80211_subif_start_xmit()
+    ├── ieee80211_lookup_ra_sta()     # 查找目标STA
+    ├── ieee80211_select_queue()      # 选择发送队列
+    │   ├── __skb_get_hash()          # 计算数据包哈希
+    │   └── cfg80211_classify8021d()  # QoS分类
+    ├── ieee80211_aggr_check()        # 聚合检查
+    ├── ieee80211_build_hdr()         # 构建802.11头部
+    └── ieee80211_xmit()              # 开始发送
+        ├── ieee80211_tx_prepare()    # 发送准备
+        ├── invoke_tx_handlers_early() # 早期处理函数链
+        │   ├── ieee80211_tx_h_dynamic_ps()	# 动态省电
+        │   ├── ieee80211_tx_h_check_assoc()	# 关联检查
+        │   ├── ieee80211_tx_h_unicast_ps_buf()	# 单播省电缓冲
+        │   └── ieee80211_tx_h_select_key()  # 选择加密密钥
+        └── ieee80211_queue_skb()     # 入队等待发送
+            └── ieee80211_handle_wake_tx_queue()  # 唤醒发送队列
+                ├── ieee80211_next_txq()          # 获取下一个发送队列
+                └── ieee80211_tx_dequeue()        # 从队列取出数据包
+                    ├── invoke_tx_handlers_late() # 后期处理函数链
+                    │   ├── ieee80211_tx_h_rate_ctrl()    # 速率控制
+                    │   ├── ieee80211_tx_h_michael_mic_add()
+                    │   ├── ieee80211_tx_h_sequence()     # 序列号分配
+                    │   ├── ieee80211_tx_h_fragment()     # 分片处理
+                    │   └── ieee80211_tx_h_encrypt()      # 加密处理 ★
+                    │       └── ieee80211_crypto_ccmp_encrypt()  # CCMP加密
+                    └── mac80211_hwsim_tx()       # 模拟驱动发送
+                        └── ieee80211_tx_status_irqsafe() # 发送状态报告
+						
+						
+						
+无线网卡接收中断
+    ↓
+ieee80211_rx_napi()                   # NAPI接收入口
+    ↓
+ieee80211_rx_list()                   # 接收数据包列表处理
+    ├── ieee80211_rx_monitor()        # 监控模式处理
+    └── __ieee80211_rx_handle_packet() # 处理单个数据包
+        ├── ieee80211_prepare_and_rx_handle()  # 准备和处理
+        │   ├── ieee80211_accept_frame()       # 帧接受检查
+        │   ├── ieee80211_rx_h_check()         # 基础检查
+        │   ├── ieee80211_rx_reorder_ampdu()   # AMPDU重排序
+        │   └── ieee80211_rx_handlers()        # 接收处理函数链
+        │       ├── ieee80211_rx_h_sta_process()  # STA处理
+        │       ├── ieee80211_rx_h_decrypt()      # 解密处理 ★
+        │       │   └── ieee80211_crypto_ccmp_decrypt()  # CCMP解密
+        │       │       └── aead_decrypt()        # AEAD解密
+        │       │           └── crypto_ccm_decrypt()  # CCM模式解密
+        │       ├── ieee80211_rx_h_defragment()   # 分片重组
+        │       ├── ieee80211_rx_h_michael_mic_verify()  # MIC验证
+        │       └── ieee80211_rx_h_data()         # 数据处理
+        │           ├── ieee80211_data_to_8023_exthdr()  # 802.11→802.3转换
+        │           └── ieee80211_deliver_skb()   # 递交给网络栈
+        │               └── eth_type_trans()      # 以太网类型识别
+        └── netif_receive_skb_list()              # 网络接口接收
+            └── __netif_receive_skb_list_core()   # 核心接收处理
+                └── ip_list_rcv()                 # IP层接收
+                    ├── nf_hook_slow_list()       # Netfilter钩子
+                    │   ├── ipv4_conntrack_defrag()  # 连接跟踪分片重组
+                    │   ├── ipv4_conntrack_in()      # 连接跟踪入口
+                    │   └── nf_nat_ipv4_pre_routing() # NAT预处理
+                    └── ip_rcv_finish_core()      # IP接收完成处理
+                        ├── udp_v4_early_demux()  # UDP早期解复用
+                        └── ip_route_input_noref() # 路由查找
