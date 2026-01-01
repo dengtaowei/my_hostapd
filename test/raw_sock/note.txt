@@ -1,0 +1,328 @@
+echo nop > current_tracer
+echo > trace
+echo > set_graph_function
+echo function_graph > current_tracer
+echo "ieee80211_rx_napi ieee80211_subif_start_xmit" > set_graph_function
+echo 10 > max_graph_depth
+echo > set_ftrace_pid
+echo 1 > tracing_on
+echo 0 > tracing_on
+echo > trace
+cat trace
+
+
+
+
+echo nop > current_tracer
+echo > trace
+echo function > current_tracer
+echo register_netdevice > set_ftrace_filter
+echo 1 > options/func_stack_trace
+echo 1 > tracing_on
+echo 0 > tracing_on
+echo > trace
+cat trace
+
+
+echo nop > current_tracer
+echo nop > set_ftrace_filter
+echo 0 > options/func_stack_trace
+
+
+   6)               |  ieee80211_subif_start_xmit [mac80211]() {
+   6)               |    __ieee80211_subif_start_xmit [mac80211]() {
+   6)   0.433 us    |      __rcu_read_lock();
+   6)               |      ieee80211_lookup_ra_sta [mac80211]() {
+   6)               |        sta_info_get_bss [mac80211]() {
+   6)   0.202 us    |          __rcu_read_lock();
+   6)   0.354 us    |          __rcu_read_unlock();
+   6)   4.790 us    |        }
+   6)   5.585 us    |      }
+   6)               |      ieee80211_select_queue [mac80211]() {
+   6)               |        __skb_get_hash() {
+   6)               |          __skb_flow_dissect() {
+   6)   0.223 us    |            __rcu_read_lock();
+   6)   0.237 us    |            __rcu_read_unlock();
+   6)   0.260 us    |            __skb_flow_get_ports();
+   6)   1.933 us    |          }
+   6)   3.284 us    |        }
+   6)   0.366 us    |        cfg80211_classify8021d [cfg80211]();
+   6)   0.459 us    |        ieee80211_downgrade_queue [mac80211]();
+   6)   5.961 us    |      }
+   6)   1.214 us    |      ieee80211_aggr_check [mac80211]();
+   6)   0.231 us    |      ieee80211_tx_skb_fixup [mac80211]();
+   6)               |      ieee80211_build_hdr [mac80211]() {
+   6)   0.192 us    |        skb_pull();
+   6)   0.188 us    |        skb_push();
+   6)   0.186 us    |        skb_push();
+   6)   0.189 us    |        skb_push();
+   6)   2.580 us    |      }
+   6)               |      ieee80211_xmit [mac80211]() {
+   6)   0.305 us    |        ieee80211_skb_resize [mac80211]();
+   6)   0.232 us    |        ieee80211_set_qos_hdr [mac80211]();
+   6)               |        ieee80211_tx [mac80211]() {
+   6)               |          ieee80211_tx_prepare [mac80211]() {
+   6)   0.736 us    |            ieee80211_tx_prep_agg [mac80211]();
+   6)   1.825 us    |          }
+   6)               |          invoke_tx_handlers_early [mac80211]() {
+   6)   0.314 us    |            ieee80211_tx_h_dynamic_ps [mac80211]();
+   6)   0.228 us    |            ieee80211_tx_h_check_assoc [mac80211]();
+   6)   0.254 us    |            ieee80211_tx_h_unicast_ps_buf [mac80211]();
+   6)   0.765 us    |            ieee80211_tx_h_select_key [mac80211]();
+   6)   2.931 us    |          }
+   6)               |          ieee80211_queue_skb [mac80211]() {
+   6)   0.437 us    |            ktime_get();
+   6)   0.246 us    |            _raw_spin_lock_bh();
+   6)   1.304 us    |            fq_tin_enqueue.constprop.0 [mac80211]();
+   6)               |            _raw_spin_unlock_bh() {
+   6)   0.228 us    |              __local_bh_enable_ip();
+   6)   0.700 us    |            }
+   6)               |            __ieee80211_schedule_txq [mac80211]() {
+   6)   0.505 us    |              _raw_spin_lock_bh();
+   6)               |              _raw_spin_unlock_bh() {
+   6)   0.253 us    |                __local_bh_enable_ip();
+   6)   0.643 us    |              }
+   6)   1.843 us    |            }
+   6)               |            ieee80211_handle_wake_tx_queue [mac80211]() {
+   6)   0.195 us    |              _raw_spin_lock();
+   6)               |              ieee80211_txq_schedule_start [mac80211]() {
+   6)   0.217 us    |                _raw_spin_lock_bh();
+   6)               |                _raw_spin_unlock_bh() {
+   6)   0.202 us    |                  __local_bh_enable_ip();
+   6)   0.784 us    |                }
+   6)   1.692 us    |              }
+   6)               |              ieee80211_next_txq [mac80211]() {
+   6)   0.243 us    |                _raw_spin_lock_bh();
+   6)   0.252 us    |                ieee80211_txq_airtime_check [mac80211]();
+   6)               |                _raw_spin_unlock_bh() {
+   6)   0.238 us    |                  __local_bh_enable_ip();
+   6)   0.678 us    |                }
+   6)   2.186 us    |              }
+   6)               |              ieee80211_tx_dequeue [mac80211]() {
+   6)   0.229 us    |                ieee80211_txq_airtime_check [mac80211]();
+   6)   0.314 us    |                _raw_spin_lock_irqsave();
+   6)   0.447 us    |                _raw_spin_unlock_irqrestore();
+   6)   0.245 us    |                _raw_spin_lock_bh();
+   6)               |                fq_tin_dequeue_func [mac80211]() {
+   6)               |                  codel_dequeue.constprop.0 [mac80211]() {
+   6)   0.385 us    |                    codel_dequeue_func [mac80211]();
+   6)   0.296 us    |                    ktime_get();
+   6)   1.749 us    |                  }
+   6)   2.291 us    |                }
+   6)               |                _raw_spin_unlock_bh() {
+   6)   0.236 us    |                  __local_bh_enable_ip();
+   6)   0.665 us    |                }
+   6)   0.273 us    |                ieee80211_tx_h_select_key [mac80211]();
+   6)               |                invoke_tx_handlers_late [mac80211]() {
+   6)               |                  ieee80211_tx_h_rate_ctrl [mac80211]() {
+   6)   4.748 us    |                    rate_control_get_rate [mac80211]();
+   6)   5.752 us    |                  }
+   6)   0.268 us    |                  ieee80211_tx_h_michael_mic_add [mac80211]();
+   6)               |                  ieee80211_tx_h_sequence [mac80211]() {
+   6)   0.259 us    |                    ieee80211_hdrlen [cfg80211]();
+   6)   1.029 us    |                  }
+   6)   0.252 us    |                  ieee80211_tx_h_fragment [mac80211]();
+   6)               |                  ieee80211_tx_h_encrypt [mac80211]() {
+   6) ! 159.267 us  |                    ieee80211_crypto_ccmp_encrypt [mac80211]();
+   6) ! 160.252 us  |                  }
+   6)   0.458 us    |                  ieee80211_duration [mac80211]();
+   6) ! 170.174 us  |                }
+   6) ! 177.470 us  |              }
+   6)               |              mac80211_hwsim_tx [mac80211_hwsim]() {
+   6)   0.757 us    |                mac80211_hwsim_monitor_rx [mac80211_hwsim]();
+   6)               |                mac80211_hwsim_tx_frame_no_nl.isra.0 [mac80211_hwsim]() {
+   6)               |                  sock_wfree() {
+   6)   0.633 us    |                    sock_def_write_space();
+   6)   2.028 us    |                  }
+   6)   0.397 us    |                  ktime_get_with_offset();
+   6)   0.303 us    |                  _raw_spin_lock();
+   6)               |                  skb_copy() {
+   6) ! 282.672 us  |                    __alloc_skb();
+   6)   0.689 us    |                    skb_copy_bits();
+   6)   0.502 us    |                    skb_copy_header();
+   6) ! 285.473 us  |                  }
+   6)               |                  mac80211_hwsim_addr_match [mac80211_hwsim]() {
+   6)   4.284 us    |                    ieee80211_iterate_active_interfaces_atomic [mac80211]();
+   6)   5.141 us    |                  }
+   6)               |                  mac80211_hwsim_rx [mac80211_hwsim]() {
+   6)   0.233 us    |                    __rcu_read_lock();
+   6)   0.860 us    |                    ieee80211_find_sta_by_link_addrs [mac80211]();
+   6)   0.245 us    |                    __rcu_read_unlock();
+   6)   1.482 us    |                    ieee80211_rx_irqsafe [mac80211]();
+   6)   4.420 us    |                  }
+   6)   0.238 us    |                  _raw_spin_unlock();
+   6) ! 300.832 us  |                }
+   6)   0.401 us    |                mac80211_hwsim_monitor_ack [mac80211_hwsim]();
+   6)               |                ieee80211_tx_status_irqsafe [mac80211]() {
+   6)               |                  skb_queue_tail() {
+   6)   0.284 us    |                    _raw_spin_lock_irqsave();
+   6)   0.288 us    |                    _raw_spin_unlock_irqrestore();
+   6)   1.322 us    |                  }
+   6)               |                  __tasklet_schedule() {
+   6)   0.345 us    |                    __tasklet_schedule_common();
+   6)   0.796 us    |                  }
+   6)   2.805 us    |                }
+   6) ! 307.792 us  |              }
+   6)               |              ieee80211_tx_dequeue [mac80211]() {
+   6)   0.232 us    |                ieee80211_txq_airtime_check [mac80211]();
+   6)   0.254 us    |                _raw_spin_lock_irqsave();
+   6)   0.261 us    |                _raw_spin_unlock_irqrestore();
+   6)   0.243 us    |                _raw_spin_lock_bh();
+   6)               |                fq_tin_dequeue_func [mac80211]() {
+   6)               |                  codel_dequeue.constprop.0 [mac80211]() {
+   6)   0.417 us    |                    codel_dequeue_func [mac80211]();
+   6)   1.102 us    |                  }
+   6)   1.782 us    |                }
+   6)               |                _raw_spin_unlock_bh() {
+   6)   0.395 us    |                  __local_bh_enable_ip();
+   6)   0.856 us    |                }
+   6)   5.585 us    |              }
+   6)               |              __ieee80211_schedule_txq [mac80211]() {
+   6)   0.248 us    |                _raw_spin_lock_bh();
+   6)               |                _raw_spin_unlock_bh() {
+   6)   0.239 us    |                  __local_bh_enable_ip();
+   6)   0.635 us    |                }
+   6)   1.562 us    |              }
+   6)               |              ieee80211_next_txq [mac80211]() {
+   6)   0.246 us    |                _raw_spin_lock_bh();
+   6)               |                _raw_spin_unlock_bh() {
+   6)   0.250 us    |                  __local_bh_enable_ip();
+   6)   0.707 us    |                }
+   6)   1.615 us    |              }
+   6)   0.262 us    |              _raw_spin_unlock();
+   6) ! 502.663 us  |            }
+   6) ! 511.459 us  |          }
+   6) ! 518.164 us  |        }
+   6) ! 519.840 us  |      }
+   6)   0.259 us    |      __rcu_read_unlock();
+   6) ! 540.993 us  |    }
+   6) ! 544.662 us  |  }
+   6)               |  ieee80211_rx_napi [mac80211]() {
+   6)   0.312 us    |    __rcu_read_lock();
+   6)               |    ieee80211_rx_list [mac80211]() {
+   6)               |      ieee80211_rx_monitor [mac80211]() {
+   6)   0.291 us    |        ieee80211_clean_skb [mac80211]();
+   6)   2.709 us    |      }
+   6)               |      __ieee80211_rx_handle_packet [mac80211]() {
+   6)   0.268 us    |        ieee80211_hdrlen [cfg80211]();
+   6)   0.989 us    |        sta_info_hash_lookup [mac80211]();
+   6)   0.282 us    |        ieee80211_rx_data_set_sta [mac80211]();
+   6)               |        ieee80211_prepare_and_rx_handle [mac80211]() {
+   6)               |          ieee80211_accept_frame [mac80211]() {
+   6)   0.242 us    |            ieee80211_get_bssid [mac80211]();
+   6)   0.276 us    |            ieee80211_is_our_addr [mac80211]();
+   6)   2.209 us    |          }
+   6)   0.262 us    |          ieee80211_rx_h_check [mac80211]();
+   6)               |          ieee80211_rx_reorder_ampdu [mac80211]() {
+   6)               |            ieee80211_sta_manage_reorder_buf [mac80211]() {
+   6)   0.402 us    |              _raw_spin_lock();
+   6)   0.275 us    |              _raw_spin_unlock();
+   6)   1.941 us    |            }
+   6)   3.471 us    |          }
+   6)               |          ieee80211_rx_handlers [mac80211]() {
+   6)   0.249 us    |            _raw_spin_lock_bh();
+   6)   0.604 us    |            ieee80211_rx_h_sta_process [mac80211]();
+   6)               |            ieee80211_rx_h_decrypt [mac80211]() {
+   6)   0.262 us    |              ieee80211_hdrlen [cfg80211]();
+   6)   0.323 us    |              skb_copy_bits();
+   6)               |              ieee80211_crypto_ccmp_decrypt [mac80211]() {
+   6)   0.460 us    |                ieee80211_hdrlen [cfg80211]();
+   6)               |                ccmp_special_blocks.isra.0 [mac80211]() {
+   6)   0.265 us    |                  ccmp_gcmp_aad.isra.0 [mac80211]();
+   6)   0.725 us    |                }
+   6)               |                aead_decrypt [mac80211]() {
+   6)               |                  __kmalloc() {
+   6)   0.249 us    |                    should_failslab.constprop.0();
+   6)   1.159 us    |                  }
+   6)               |                  crypto_aead_decrypt() {
+   6) + 21.042 us   |                    crypto_ccm_decrypt [ccm]();
+   6) + 21.983 us   |                  }
+   6)               |                  kfree_sensitive() {
+   6)   0.259 us    |                    kfence_ksize();
+   6)   0.498 us    |                    __ksize();
+   6)   0.831 us    |                    kfree();
+   6)   2.953 us    |                  }
+   6) + 27.781 us   |                }
+   6)   0.251 us    |                skb_pull();
+   6) + 30.917 us   |              }
+   6) + 33.343 us   |            }
+   6)   0.559 us    |            ieee80211_rx_h_defragment [mac80211]();
+   6)   0.251 us    |            ieee80211_rx_h_michael_mic_verify [mac80211]();
+   6)               |            ieee80211_rx_h_data [mac80211]() {
+   6)               |              ieee80211_data_to_8023_exthdr [cfg80211]() {
+   6)   0.377 us    |                ieee80211_hdrlen [cfg80211]();
+   6)   0.358 us    |                skb_copy_bits();
+   6)   0.205 us    |                skb_push();
+   6)   2.307 us    |              }
+   6)   0.203 us    |              ieee80211_rx_mesh_data [mac80211]();
+   6)   0.232 us    |              ieee80211_frame_allowed [mac80211]();
+   6)               |              ieee80211_deliver_skb [mac80211]() {
+   6)   0.521 us    |                eth_type_trans();
+   6)   0.227 us    |                ieee80211_deliver_skb_to_local_stack [mac80211]();
+   6)   1.625 us    |              }
+   6)   6.132 us    |            }
+   6)   0.205 us    |            ieee80211_rx_handlers_result [mac80211]();
+   6)               |            _raw_spin_unlock_bh() {
+   6)   0.210 us    |              __local_bh_enable_ip();
+   6)   0.599 us    |            }
+   6) + 45.554 us   |          }
+   6) + 53.265 us   |        }
+   6) + 57.035 us   |      }
+   6) + 61.837 us   |    }
+   6)   0.216 us    |    __rcu_read_unlock();
+   6)               |    netif_receive_skb_list() {
+   6)               |      netif_receive_skb_list_internal() {
+   6)   0.414 us    |        ktime_get_with_offset();
+   6)   0.383 us    |        skb_defer_rx_timestamp();
+   6)   0.196 us    |        __rcu_read_lock();
+   6)               |        __netif_receive_skb_list_core() {
+   6)   2.031 us    |          __netif_receive_skb_core.constprop.0();
+   6)               |          ip_list_rcv() {
+   6)   0.504 us    |            ip_rcv_core();
+   6)               |            ip_sublist_rcv() {
+   6)   0.218 us    |              __rcu_read_lock();
+   6)               |              nf_hook_slow_list() {
+   6)               |                nf_hook_slow() {
+   6)   0.223 us    |                  ipv4_conntrack_defrag [nf_defrag_ipv4]();
+   6)               |                  ipv4_conntrack_in [nf_conntrack]() {
+   6) + 49.604 us   |                    nf_conntrack_in [nf_conntrack]();
+   6) + 50.748 us   |                  }
+   6)               |                  nf_nat_ipv4_pre_routing [nf_nat]() {
+   6) + 17.455 us   |                    nf_nat_inet_fn [nf_nat]();
+   6) + 18.274 us   |                  }
+   6) + 72.496 us   |                }
+   6) + 73.111 us   |              }
+   6)   0.250 us    |              __rcu_read_unlock();
+   6)               |              ip_rcv_finish_core.constprop.0() {
+   6)   0.837 us    |                udp_v4_early_demux();
+   6)               |                ip_route_input_noref() {
+   6)   0.233 us    |                  __rcu_read_lock();
+   6)               |                  ip_route_input_slow() {
+   6)   0.636 us    |                    make_kuid();
+   6)   0.239 us    |                    __rcu_read_lock();
+   6)   0.448 us    |                    fib_table_lookup();
+   6)   0.184 us    |                    __rcu_read_unlock();
+   6)   3.567 us    |                    __mkroute_input();
+   6)   7.164 us    |                  }
+   6)   0.202 us    |                  __rcu_read_unlock();
+   6)   8.535 us    |                }
+   6)               |                kfree_skb_reason() {
+   6)               |                  skb_release_head_state() {
+   6)   2.704 us    |                    nf_conntrack_destroy();
+   6)   3.105 us    |                  }
+   6)               |                  skb_release_data() {
+   6)   1.183 us    |                    skb_free_head();
+   6)   1.657 us    |                  }
+   6)               |                  kfree_skbmem() {
+   6)   1.222 us    |                    kmem_cache_free();
+   6)   1.687 us    |                  }
+   6)   7.460 us    |                }
+   6) + 18.615 us   |              }
+   6)   0.225 us    |              ip_sublist_rcv_finish();
+   6) + 95.142 us   |            }
+   6) + 96.736 us   |          }
+   6) + 99.969 us   |        }
+   6)   0.262 us    |        __rcu_read_unlock();
+   6) ! 102.987 us  |      }
+   6) ! 103.678 us  |    }
+   6) ! 167.874 us  |  }
