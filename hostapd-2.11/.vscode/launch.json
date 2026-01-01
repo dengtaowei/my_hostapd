@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/hostapd/hostapd",
-            "args": ["-d", "/home/anlan/Desktop/hostapd-2.11/hostapd/hostapdwlan0.conf"],
+            "args": ["-d", "${workspaceFolder}/hostapd/hostapdwlan0.conf"],
             // "args": ["-d", "/home/anlan/Desktop/vwifi/hostapd.conf"],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",
