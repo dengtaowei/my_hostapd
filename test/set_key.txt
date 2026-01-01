@@ -1,0 +1,3476 @@
+echo nop > current_tracer
+echo > trace
+echo > set_graph_function
+echo function_graph > current_tracer
+echo "nl80211_new_key nl80211_set_key" > set_graph_function
+echo 10 > max_graph_depth
+echo > set_ftrace_pid
+echo 1 > tracing_on
+echo 0 > tracing_on
+echo > trace
+cat trace
+
+
+
+
+  3)               |  nl80211_new_key [cfg80211]() {
+   3)               |    nl80211_parse_key [cfg80211]() {
+   3)   0.750 us    |      nl80211_parse_key_new.constprop.0 [cfg80211]();
+   3)   1.637 us    |    }
+   3)               |    cfg80211_validate_key_settings [cfg80211]() {
+   3)   0.262 us    |      cfg80211_valid_key_idx [cfg80211]();
+   3)   0.995 us    |    }
+   3)   0.259 us    |    nl80211_key_allowed [cfg80211]();
+   3)   0.242 us    |    nl80211_validate_key_link_id [cfg80211]();
+   3)               |    ieee80211_add_key [mac80211]() {
+   3)               |      ieee80211_key_alloc [mac80211]() {
+   3)               |        __kmalloc() {
+   3)   0.255 us    |          __cond_resched();
+   3)   0.253 us    |          should_failslab.constprop.0();
+   5)               |  nl80211_new_key [cfg80211]() {
+   5)               |    nl80211_parse_key [cfg80211]() {
+   5)   0.423 us    |      nl80211_parse_key_new.constprop.0 [cfg80211]();
+   5)   0.955 us    |    }
+   5)               |    cfg80211_validate_key_settings [cfg80211]() {
+   5)   0.187 us    |      cfg80211_valid_key_idx [cfg80211]();
+   5)   0.626 us    |    }
+   5)   0.183 us    |    nl80211_key_allowed [cfg80211]();
+   5)   0.187 us    |    nl80211_validate_key_link_id [cfg80211]();
+   5)               |    ieee80211_add_key [mac80211]() {
+   5)               |      ieee80211_key_alloc [mac80211]() {
+   5)               |        __kmalloc() {
+   5)   0.184 us    |          __cond_resched();
+   5)   0.184 us    |          should_failslab.constprop.0();
+   5)   1.314 us    |        }
+   5)               |        aead_key_setup_encrypt [mac80211]() {
+   5)               |          crypto_alloc_aead() {
+   5)               |            crypto_alloc_tfm_node() {
+   5)               |              crypto_alg_mod_lookup() {
+   5)               |                crypto_alg_lookup() {
+   5)               |                  down_read() {
+   5)   0.187 us    |                    __cond_resched();
+   5)   0.744 us    |                  }
+   5)               |                  __crypto_alg_lookup() {
+   5)   0.390 us    |                    try_module_get();
+   5)   0.186 us    |                    crypto_mod_get.part.0();
+   5) + 11.294 us   |                  }
+   5)   0.186 us    |                  up_read();
+   5) + 12.866 us   |                }
+   5) + 13.325 us   |              }
+   5)               |              crypto_create_tfm_node() {
+   5)               |                crypto_alloc_tfmmem.isra.0() {
+   5)   0.184 us    |                  crypto_alg_extsize();
+   5)               |                  __kmalloc_node() {
+   5)   0.182 us    |                    __cond_resched();
+   5)   0.183 us    |                    should_failslab.constprop.0();
+   5)   0.825 us    |                    ___slab_alloc();
+   5)   2.236 us    |                  }
+   5)   3.160 us    |                }
+   5)               |                crypto_aead_init_tfm() {
+   5)               |                  crypto_ccm_init_tfm [ccm]() {
+   5)   5.520 us    |                    crypto_spawn_tfm2();
+   5)   3.455 us    |                    crypto_spawn_tfm2();
+   5)   9.652 us    |                  }
+   5) + 10.144 us   |                }
+   5) + 13.866 us   |              }
+   5) + 27.866 us   |            }
+   5) + 28.388 us   |          }
+   5)               |          crypto_aead_setkey() {
+   5)               |            crypto_ccm_setkey [ccm]() {
+   5)               |              crypto_skcipher_setkey() {
+   5)               |                skcipher_setkey_simple() {
+   5)               |                  crypto_cipher_setkey() {
+   5)   1.937 us    |                    aes_set_key [aesni_intel]();
+   5)   2.584 us    |                  }
+   5)   2.998 us    |                }
+   5)   3.358 us    |              }
+   5)               |              crypto_ahash_setkey() {
+   5)               |                crypto_shash_setkey() {
+   5)               |                  crypto_cbcmac_digest_setkey [ccm]() {
+   5)   0.803 us    |                    crypto_cipher_setkey();
+   5)   1.149 us    |                  }
+   5)   1.501 us    |                }
+   5)   1.914 us    |              }
+   5)   5.900 us    |            }
+   5)   6.249 us    |          }
+   5)               |          crypto_aead_setauthsize() {
+   5)   0.182 us    |            crypto_ccm_setauthsize [ccm]();
+   5)   0.592 us    |          }
+   5) + 36.316 us   |        }
+   5) + 38.441 us   |      }
+   5)               |      sta_info_get_bss [mac80211]() {
+   5)   0.184 us    |        __rcu_read_lock();
+   5)   0.196 us    |        __rcu_read_unlock();
+   5)   1.148 us    |      }
+   5)               |      ieee80211_key_link [mac80211]() {
+   5)   0.200 us    |        ieee80211_key_identical [mac80211]();
+   5)               |        increment_tailroom_need_count [mac80211]() {
+   5)   0.184 us    |          __rcu_read_lock();
+   5)   0.182 us    |          __rcu_read_unlock();
+   5)   0.880 us    |        }
+   5)               |        ieee80211_key_replace [mac80211]() {
+   5)   0.196 us    |          ieee80211_pairwise_rekey [mac80211]();
+   5)               |          ieee80211_key_enable_hw_accel [mac80211]() {
+   5)   0.619 us    |            __cond_resched();
+   5)   1.171 us    |          }
+   5)               |          _ieee80211_set_tx_key [mac80211]() {
+   5)               |            ieee80211_check_fast_xmit [mac80211]() {
+   5)   0.182 us    |              _raw_spin_lock_bh();
+   5)               |              _raw_spin_unlock_bh() {
+   5)   0.212 us    |                __local_bh_enable_ip();
+   5)   0.567 us    |              }
+   5)   1.277 us    |            }
+   5)   1.662 us    |          }
+   5)               |          ieee80211_check_fast_rx [mac80211]() {
+   5)   0.181 us    |            _raw_spin_lock_bh();
+   5)               |            _raw_spin_unlock_bh() {
+   5)   0.184 us    |              __local_bh_enable_ip();
+   5)   0.519 us    |            }
+   5)   1.227 us    |          }
+   5)   5.380 us    |        }
+   5)               |        ieee80211_debugfs_key_add [mac80211]() {
+   5)               |          debugfs_create_dir() {
+   5)               |            start_creating.part.0() {
+   5)               |              simple_pin_fs() {
+   5)   0.245 us    |                _raw_spin_lock();
+   5)   0.246 us    |                mntget();
+   5)   0.183 us    |                _raw_spin_unlock();
+   5)   0.189 us    |                mntput();
+   5)   1.674 us    |              }
+   5)               |              down_write() {
+   5)   0.183 us    |                __cond_resched();
+   5)   0.804 us    |              }
+   5)               |              lookup_one_len() {
+   5)               |                lookup_one_common() {
+   5)   0.187 us    |                  full_name_hash();
+   5)               |                  inode_permission() {
+   5)   0.402 us    |                    generic_permission();
+   5)   0.238 us    |                    security_inode_permission();
+   5)   1.273 us    |                  }
+   5)   2.050 us    |                }
+   5)               |                lookup_dcache() {
+   5)               |                  d_lookup() {
+   5)   0.602 us    |                    __d_lookup();
+   5)   1.023 us    |                  }
+   5)   1.441 us    |                }
+   5)               |                __lookup_slow() {
+   5)               |                  d_alloc_parallel() {
+   5)   3.525 us    |                    d_alloc();
+   5)   0.186 us    |                    __rcu_read_lock();
+   5)   0.192 us    |                    __d_lookup_rcu();
+   5)   0.189 us    |                    __rcu_read_unlock();
+   5)   5.064 us    |                  }
+   5)               |                  simple_lookup() {
+   5)   1.079 us    |                    d_add();
+   5)   1.436 us    |                  }
+   5)   7.166 us    |                }
+   5) + 11.514 us   |              }
+   5) + 15.244 us   |            }
+   5)               |            new_inode() {
+   5)               |              alloc_inode() {
+   5)               |                kmem_cache_alloc_lru() {
+   5)   0.185 us    |                  __cond_resched();
+   5)   0.191 us    |                  should_failslab.constprop.0();
+   5)               |                  __memcg_slab_pre_alloc_hook() {
+   5)   0.191 us    |                    __rcu_read_lock();
+   5)   0.183 us    |                    __rcu_read_lock();
+   5)   0.191 us    |                    __rcu_read_unlock();
+   5)   0.191 us    |                    __rcu_read_unlock();
+   5)   0.663 us    |                    memcg_list_lru_alloc();
+   5)   0.184 us    |                    __rcu_read_lock();
+   3) ! 298.261 us  |        }
+   5)   0.182 us    |                    __rcu_read_unlock();
+   5)   0.285 us    |                    obj_cgroup_charge();
+   5)   3.478 us    |                  }
+   3)               |        aead_key_setup_encrypt [mac80211]() {
+   5)               |                  __memcg_slab_post_alloc_hook() {
+   3)               |          crypto_alloc_aead() {
+   5)   0.184 us    |                    __rcu_read_lock();
+   3)               |            crypto_alloc_tfm_node() {
+   3)               |              crypto_alg_mod_lookup() {
+   5)   0.182 us    |                    __rcu_read_unlock();
+   3)               |                crypto_alg_lookup() {
+   3)               |                  down_read() {
+   5)   0.196 us    |                    mod_objcg_state();
+   3)   0.189 us    |                    __cond_resched();
+   5)   1.553 us    |                  }
+   3)   0.616 us    |                  }
+   5)   6.417 us    |                }
+   3)               |                  __crypto_alg_lookup() {
+   3)   0.256 us    |                    try_module_get();
+   5)               |                inode_init_always() {
+   5)               |                  make_kuid() {
+   3)   0.208 us    |                    crypto_mod_get.part.0();
+   5)   0.209 us    |                    map_id_range_down();
+   5)   0.553 us    |                  }
+   5)               |                  make_kgid() {
+   5)   0.188 us    |                    map_id_range_down();
+   5)   0.521 us    |                  }
+   5)   0.182 us    |                  __init_rwsem();
+   5)   0.178 us    |                  __init_rwsem();
+   5)               |                  security_inode_alloc() {
+   5)   0.444 us    |                    kmem_cache_alloc();
+   5)   0.197 us    |                    apparmor_inode_alloc_security();
+   5)   1.189 us    |                  }
+   3)   4.072 us    |                  }
+   5)   4.148 us    |                }
+   3)   0.189 us    |                  up_read();
+   5) + 11.138 us   |              }
+   5)   0.194 us    |              _raw_spin_lock();
+   3)   5.600 us    |                }
+   3)   5.975 us    |              }
+   5)   0.185 us    |              _raw_spin_unlock();
+   3)               |              crypto_create_tfm_node() {
+   3)               |                crypto_alloc_tfmmem.isra.0() {
+   5)   0.184 us    |              _raw_spin_lock();
+   3)   0.181 us    |                  crypto_alg_extsize();
+   5)   0.174 us    |              _raw_spin_unlock();
+   3)               |                  __kmalloc_node() {
+   5) + 12.855 us   |            }
+   3)   0.179 us    |                    __cond_resched();
+   5)   0.184 us    |            get_next_ino();
+   3)   0.180 us    |                    should_failslab.constprop.0();
+   5)               |            simple_inode_init_ts() {
+   5)               |              inode_set_ctime_current() {
+   5)   0.192 us    |                ktime_get_coarse_real_ts64();
+   3)   1.293 us    |                  }
+   3)   1.968 us    |                }
+   5)   0.614 us    |              }
+   3)               |                crypto_aead_init_tfm() {
+   5)   1.034 us    |            }
+   3)               |                  crypto_ccm_init_tfm [ccm]() {
+   5)   0.182 us    |            inc_nlink();
+   3)   5.389 us    |                    crypto_spawn_tfm2();
+   5)               |            d_instantiate() {
+   5)               |              security_d_instantiate() {
+   5)               |                apparmor_d_instantiate() {
+   5)   0.184 us    |                  _raw_spin_lock();
+   5)   0.191 us    |                  _raw_spin_unlock();
+   5)   1.158 us    |                }
+   5)   1.542 us    |              }
+   5)   0.185 us    |              _raw_spin_lock();
+   5)               |              __d_instantiate() {
+   5)   0.225 us    |                d_flags_for_inode();
+   5)   0.186 us    |                _raw_spin_lock();
+   5)   0.185 us    |                _raw_spin_unlock();
+   5)   1.268 us    |              }
+   5)   0.183 us    |              _raw_spin_unlock();
+   5)   3.991 us    |            }
+   5)   0.185 us    |            inc_nlink();
+   5)   0.191 us    |            up_write();
+   5) + 35.513 us   |          }
+   3)   3.174 us    |                    crypto_spawn_tfm2();
+   5)               |          debugfs_create_symlink() {
+   5)               |            kstrdup() {
+   5)               |              __kmalloc_node_track_caller() {
+   5)   0.197 us    |                __cond_resched();
+   5)   0.191 us    |                should_failslab.constprop.0();
+   5)   0.400 us    |                ___slab_alloc();
+   5)   1.523 us    |              }
+   5)   1.934 us    |            }
+   5)               |            start_creating.part.0() {
+   5)               |              simple_pin_fs() {
+   3)   9.091 us    |                  }
+   5)   0.185 us    |                _raw_spin_lock();
+   3)   9.492 us    |                }
+   3) + 11.971 us   |              }
+   5)   0.184 us    |                mntget();
+   3) + 18.488 us   |            }
+   3) + 18.860 us   |          }
+   5)   0.186 us    |                _raw_spin_unlock();
+   3)               |          crypto_aead_setkey() {
+   3)               |            crypto_ccm_setkey [ccm]() {
+   5)   0.189 us    |                mntput();
+   3)               |              crypto_skcipher_setkey() {
+   5)   1.536 us    |              }
+   3)               |                skcipher_setkey_simple() {
+   5)               |              down_write() {
+   3)               |                  crypto_cipher_setkey() {
+   5)   0.184 us    |                __cond_resched();
+   3)   1.253 us    |                    aes_set_key [aesni_intel]();
+   5)   0.520 us    |              }
+   5)               |              lookup_one_len() {
+   5)               |                lookup_one_common() {
+   5)   0.187 us    |                  full_name_hash();
+   5)               |                  inode_permission() {
+   5)   0.184 us    |                    _raw_spin_lock();
+   3)   1.666 us    |                  }
+   3)   2.029 us    |                }
+   5)   0.184 us    |                    _raw_spin_unlock();
+   3)   2.381 us    |              }
+   3)               |              crypto_ahash_setkey() {
+   5)   0.289 us    |                    generic_permission();
+   3)               |                crypto_shash_setkey() {
+   3)               |                  crypto_cbcmac_digest_setkey [ccm]() {
+   5)   0.187 us    |                    security_inode_permission();
+   3)   0.808 us    |                    crypto_cipher_setkey();
+   5)   1.658 us    |                  }
+   5)   2.360 us    |                }
+   5)               |                lookup_dcache() {
+   5)               |                  d_lookup() {
+   3)   1.149 us    |                  }
+   5)   0.474 us    |                    __d_lookup();
+   3)   1.494 us    |                }
+   3)   1.848 us    |              }
+   3)   4.749 us    |            }
+   3)   5.098 us    |          }
+   5)   0.820 us    |                  }
+   3)               |          crypto_aead_setauthsize() {
+   5)   1.169 us    |                }
+   3)   0.183 us    |            crypto_ccm_setauthsize [ccm]();
+   5)               |                __lookup_slow() {
+   5)               |                  d_alloc_parallel() {
+   3)   0.547 us    |          }
+   5)   5.324 us    |                    d_alloc();
+   3) + 25.463 us   |        }
+   3) ! 325.405 us  |      }
+   3)               |      sta_info_get_bss [mac80211]() {
+   3)   0.222 us    |        __rcu_read_lock();
+   3)   0.190 us    |        __rcu_read_unlock();
+   3)   1.242 us    |      }
+   3)               |      ieee80211_key_link [mac80211]() {
+   3)   0.198 us    |        ieee80211_key_identical [mac80211]();
+   3)               |        increment_tailroom_need_count [mac80211]() {
+   3)               |          synchronize_net() {
+   3)   0.182 us    |            __cond_resched();
+   3)               |            rtnl_is_locked() {
+   3)   0.210 us    |              mutex_is_locked();
+   3)   0.556 us    |            }
+   3)               |            synchronize_rcu() {
+   3)   0.183 us    |              __cond_resched();
+   3)   0.277 us    |              rcu_gp_is_expedited();
+   5)   0.189 us    |                    __rcu_read_lock();
+   3)               |              __wait_rcu_gp() {
+   5)   0.186 us    |                    __d_lookup_rcu();
+   3)   0.184 us    |                __init_swait_queue_head();
+   5)   0.182 us    |                    __rcu_read_unlock();
+   3)               |                call_rcu_hurry() {
+   5)   6.761 us    |                  }
+   3)               |                  __call_rcu_common() {
+   5)               |                  simple_lookup() {
+   3)   0.340 us    |                    rcu_nocb_try_bypass();
+   5)   0.995 us    |                    d_add();
+   3)   0.241 us    |                    rcu_segcblist_enqueue();
+   3)   1.106 us    |                  }
+   3)   1.463 us    |                }
+   5)   1.344 us    |                  }
+   3)               |                wait_for_completion() {
+   5)   8.603 us    |                }
+   3)   0.184 us    |                  __cond_resched();
+   5) + 12.857 us   |              }
+   5) + 15.577 us   |            }
+   3)   0.189 us    |                  _raw_spin_lock_irq();
+   5)               |            new_inode() {
+   5)               |              alloc_inode() {
+   3)   0.191 us    |                  _raw_spin_unlock_irq();
+   5)               |                kmem_cache_alloc_lru() {
+   5)   0.183 us    |                  __cond_resched();
+   3)               |                  schedule_timeout() {
+   3) * 11678.32 us |                    schedule();
+   5)   0.184 us    |                  should_failslab.constprop.0();
+   5)               |                  __memcg_slab_pre_alloc_hook() {
+   5)   0.185 us    |                    __rcu_read_lock();
+   5)   0.182 us    |                    __rcu_read_lock();
+   5)   0.198 us    |                    __rcu_read_unlock();
+   5)   0.189 us    |                    __rcu_read_unlock();
+   5)   0.395 us    |                    memcg_list_lru_alloc();
+   5)   0.190 us    |                    __rcu_read_lock();
+   5)   0.197 us    |                    __rcu_read_unlock();
+   5)   0.276 us    |                    obj_cgroup_charge();
+   5)   3.213 us    |                  }
+   5)               |                  __memcg_slab_post_alloc_hook() {
+   5)   0.190 us    |                    __rcu_read_lock();
+   5)   0.183 us    |                    __rcu_read_unlock();
+   5)   0.189 us    |                    mod_objcg_state();
+   5)   1.218 us    |                  }
+   5)   5.622 us    |                }
+   5)               |                inode_init_always() {
+   5)               |                  make_kuid() {
+   5)   0.194 us    |                    map_id_range_down();
+   5)   0.544 us    |                  }
+   5)               |                  make_kgid() {
+   5)   0.192 us    |                    map_id_range_down();
+   5)   0.524 us    |                  }
+   5)   0.183 us    |                  __init_rwsem();
+   5)   0.183 us    |                  __init_rwsem();
+   5)               |                  security_inode_alloc() {
+   5)   0.396 us    |                    kmem_cache_alloc();
+   5)   0.186 us    |                    apparmor_inode_alloc_security();
+   5)   1.092 us    |                  }
+   5)   3.474 us    |                }
+   5)   9.586 us    |              }
+   5)   0.190 us    |              _raw_spin_lock();
+   5)   0.185 us    |              _raw_spin_unlock();
+   5)   0.185 us    |              _raw_spin_lock();
+   5)   0.184 us    |              _raw_spin_unlock();
+   5) + 11.278 us   |            }
+   5)   0.184 us    |            get_next_ino();
+   5)               |            simple_inode_init_ts() {
+   5)               |              inode_set_ctime_current() {
+   5)   0.185 us    |                ktime_get_coarse_real_ts64();
+   5)   0.534 us    |              }
+   5)   0.877 us    |            }
+   5)               |            d_instantiate() {
+   5)               |              security_d_instantiate() {
+   5)               |                apparmor_d_instantiate() {
+   5)   0.193 us    |                  _raw_spin_lock();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   0.866 us    |                }
+   5)   1.225 us    |              }
+   5)   0.185 us    |              _raw_spin_lock();
+   5)               |              __d_instantiate() {
+   5)   0.263 us    |                d_flags_for_inode();
+   5)   0.186 us    |                _raw_spin_lock();
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   1.275 us    |              }
+   5)   0.184 us    |              _raw_spin_unlock();
+   5)   3.736 us    |            }
+   5)   0.185 us    |            up_write();
+   5) + 35.135 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.181 us    |                  mntget();
+   5)   0.181 us    |                  _raw_spin_unlock();
+   5)   0.181 us    |                  mntput();
+   5)   1.528 us    |                }
+   5)               |                down_write() {
+   5)   0.183 us    |                  __cond_resched();
+   5)   0.518 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.185 us    |                    full_name_hash();
+   5)   0.474 us    |                    inode_permission();
+   5)   1.150 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.582 us    |                    d_lookup();
+   5)   0.916 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   2.874 us    |                    d_alloc_parallel();
+   5)   1.059 us    |                    simple_lookup();
+   5)   4.429 us    |                  }
+   5)   7.127 us    |                }
+   5)   9.826 us    |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.196 us    |                    __cond_resched();
+   5)   0.185 us    |                    should_failslab.constprop.0();
+   5)   2.723 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.503 us    |                    __memcg_slab_post_alloc_hook();
+   5)   4.585 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.279 us    |                    make_kuid();
+   5)   0.287 us    |                    make_kgid();
+   5)   0.191 us    |                    __init_rwsem();
+   5)   0.182 us    |                    __init_rwsem();
+   5)   0.589 us    |                    security_inode_alloc();
+   5)   2.487 us    |                  }
+   5)   7.560 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.183 us    |                _raw_spin_unlock();
+   5)   0.191 us    |                _raw_spin_lock();
+   5)   0.189 us    |                _raw_spin_unlock();
+   5)   9.249 us    |              }
+   5)   0.191 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.526 us    |                }
+   5)   0.860 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.185 us    |                    _raw_spin_lock();
+   5)   0.184 us    |                    _raw_spin_unlock();
+   5)   0.860 us    |                  }
+   5)   1.204 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.198 us    |                  d_flags_for_inode();
+   5)   0.184 us    |                  _raw_spin_lock();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   1.287 us    |                }
+   5)   0.198 us    |                _raw_spin_unlock();
+   5)   3.659 us    |              }
+   5)   0.188 us    |              up_write();
+   5) + 25.126 us   |            }
+   5) + 25.466 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.183 us    |                  mntget();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   0.182 us    |                  mntput();
+   5)   1.520 us    |                }
+   5)               |                down_write() {
+   5)   0.184 us    |                  __cond_resched();
+   5)   0.519 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.186 us    |                    full_name_hash();
+   5)   0.466 us    |                    inode_permission();
+   5)   1.150 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.664 us    |                    d_lookup();
+   5)   0.997 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   2.805 us    |                    d_alloc_parallel();
+   5)   1.043 us    |                    simple_lookup();
+   5)   4.350 us    |                  }
+   5)   7.135 us    |                }
+   5)   9.823 us    |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.184 us    |                    __cond_resched();
+   5)   0.184 us    |                    should_failslab.constprop.0();
+   5)   1.213 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   1.210 us    |                    __memcg_slab_post_alloc_hook();
+   5)   3.615 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.265 us    |                    make_kuid();
+   5)   0.276 us    |                    make_kgid();
+   5)   0.183 us    |                    __init_rwsem();
+   5)   0.180 us    |                    __init_rwsem();
+   5)   0.573 us    |                    security_inode_alloc();
+   5)   2.435 us    |                  }
+   5)   6.537 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.186 us    |                _raw_spin_unlock();
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.185 us    |                _raw_spin_unlock();
+   5)   8.212 us    |              }
+   5)   0.184 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.187 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.529 us    |                }
+   5)   0.865 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.187 us    |                    _raw_spin_lock();
+   5)   0.184 us    |                    _raw_spin_unlock();
+   5)   0.859 us    |                  }
+   5)   1.207 us    |                }
+   5)   0.192 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.185 us    |                  d_flags_for_inode();
+   5)   0.193 us    |                  _raw_spin_lock();
+   5)   0.183 us    |                  _raw_spin_unlock();
+   5)   1.202 us    |                }
+   5)   0.192 us    |                _raw_spin_unlock();
+   5)   3.660 us    |              }
+   5)   0.186 us    |              up_write();
+   5) + 24.045 us   |            }
+   5) + 24.384 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.187 us    |                  _raw_spin_lock();
+   5)   0.183 us    |                  mntget();
+   5)   0.183 us    |                  _raw_spin_unlock();
+   5)   0.183 us    |                  mntput();
+   5)   1.517 us    |                }
+   5)               |                down_write() {
+   5)   0.190 us    |                  __cond_resched();
+   5)   0.525 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.186 us    |                    full_name_hash();
+   5)   0.459 us    |                    inode_permission();
+   5)   1.141 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.563 us    |                    d_lookup();
+   5)   0.904 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   2.708 us    |                    d_alloc_parallel();
+   5)   1.060 us    |                    simple_lookup();
+   5)   4.280 us    |                  }
+   5)   6.959 us    |                }
+   5)   9.654 us    |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.183 us    |                    __cond_resched();
+   5)   0.185 us    |                    should_failslab.constprop.0();
+   5)   1.211 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.494 us    |                    __memcg_slab_post_alloc_hook();
+   5)   2.885 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.265 us    |                    make_kuid();
+   5)   0.275 us    |                    make_kgid();
+   5)   0.183 us    |                    __init_rwsem();
+   5)   0.178 us    |                    __init_rwsem();
+   5)   0.568 us    |                    security_inode_alloc();
+   5)   2.429 us    |                  }
+   5)   5.801 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.185 us    |                _raw_spin_unlock();
+   5)   0.184 us    |                _raw_spin_lock();
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   7.475 us    |              }
+   5)   0.185 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.188 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.526 us    |                }
+   5)   0.861 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.189 us    |                    _raw_spin_lock();
+   5)   0.184 us    |                    _raw_spin_unlock();
+   5)   0.864 us    |                  }
+   5)   1.219 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.188 us    |                  d_flags_for_inode();
+   5)   0.190 us    |                  _raw_spin_lock();
+   5)   0.185 us    |                  _raw_spin_unlock();
+   5)   1.204 us    |                }
+   5)   0.190 us    |                _raw_spin_unlock();
+   5)   3.599 us    |              }
+   5)   0.191 us    |              up_write();
+   5) + 23.185 us   |            }
+   5) + 23.524 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.183 us    |                  mntget();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   0.181 us    |                  mntput();
+   5)   1.521 us    |                }
+   5)               |                down_write() {
+   5)   0.188 us    |                  __cond_resched();
+   5)   0.523 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.201 us    |                    full_name_hash();
+   5)   0.464 us    |                    inode_permission();
+   5)   1.177 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.657 us    |                    d_lookup();
+   5)   0.989 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   2.759 us    |                    d_alloc_parallel();
+   5)   1.031 us    |                    simple_lookup();
+   5)   4.285 us    |                  }
+   5)   7.090 us    |                }
+   5)   9.799 us    |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.183 us    |                    __cond_resched();
+   5)   0.183 us    |                    should_failslab.constprop.0();
+   5)   1.204 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.482 us    |                    __memcg_slab_post_alloc_hook();
+   5)   2.876 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.277 us    |                    make_kuid();
+   5)   0.275 us    |                    make_kgid();
+   5)   0.184 us    |                    __init_rwsem();
+   5)   0.173 us    |                    __init_rwsem();
+   5)   0.567 us    |                    security_inode_alloc();
+   5)   2.435 us    |                  }
+   5)   5.795 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   7.471 us    |              }
+   5)   0.184 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.521 us    |                }
+   5)   0.857 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.187 us    |                    _raw_spin_lock();
+   5)   0.186 us    |                    _raw_spin_unlock();
+   5)   0.863 us    |                  }
+   5)   1.205 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.187 us    |                  d_flags_for_inode();
+   5)   0.184 us    |                  _raw_spin_lock();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   1.197 us    |                }
+   5)   0.183 us    |                _raw_spin_unlock();
+   5)   3.563 us    |              }
+   5)   0.186 us    |              up_write();
+   5) + 23.179 us   |            }
+   5) + 23.613 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.188 us    |                  _raw_spin_lock();
+   5)   0.183 us    |                  mntget();
+   5)   0.185 us    |                  _raw_spin_unlock();
+   5)   0.183 us    |                  mntput();
+   5)   1.525 us    |                }
+   5)               |                down_write() {
+   5)   0.184 us    |                  __cond_resched();
+   5)   0.521 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.190 us    |                    full_name_hash();
+   5)   0.460 us    |                    inode_permission();
+   5)   1.153 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.749 us    |                    d_lookup();
+   5)   1.084 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   2.764 us    |                    d_alloc_parallel();
+   5)   1.042 us    |                    simple_lookup();
+   5)   4.322 us    |                  }
+   5)   7.199 us    |                }
+   5)   9.902 us    |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.183 us    |                    __cond_resched();
+   5)   0.184 us    |                    should_failslab.constprop.0();
+   5)   1.206 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.461 us    |                    __memcg_slab_post_alloc_hook();
+   5)   2.860 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.266 us    |                    make_kuid();
+   5)   0.274 us    |                    make_kgid();
+   5)   0.184 us    |                    __init_rwsem();
+   5)   0.178 us    |                    __init_rwsem();
+   5)   0.563 us    |                    security_inode_alloc();
+   5)   2.422 us    |                  }
+   5)   5.766 us    |                }
+   5)   0.184 us    |                _raw_spin_lock();
+   5)   0.185 us    |                _raw_spin_unlock();
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.183 us    |                _raw_spin_unlock();
+   5)   7.440 us    |              }
+   5)   0.184 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.184 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.521 us    |                }
+   5)   0.855 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.189 us    |                    _raw_spin_lock();
+   5)   0.184 us    |                    _raw_spin_unlock();
+   5)   0.872 us    |                  }
+   5)   1.215 us    |                }
+   5)   0.184 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.197 us    |                  d_flags_for_inode();
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   1.203 us    |                }
+   5)   0.183 us    |                _raw_spin_unlock();
+   5)   3.573 us    |              }
+   5)   0.189 us    |              up_write();
+   5) + 23.244 us   |            }
+   5) + 23.590 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.186 us    |                  _raw_spin_lock();
+   5)   0.184 us    |                  mntget();
+   5)   0.185 us    |                  _raw_spin_unlock();
+   5)   0.182 us    |                  mntput();
+   5)   1.523 us    |                }
+   5)               |                down_write() {
+   5)   0.190 us    |                  __cond_resched();
+   5)   0.525 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.193 us    |                    full_name_hash();
+   5)   0.459 us    |                    inode_permission();
+   5)   1.149 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.662 us    |                    d_lookup();
+   5)   0.997 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   2.779 us    |                    d_alloc_parallel();
+   5)   1.042 us    |                    simple_lookup();
+   5)   4.317 us    |                  }
+   5)   7.101 us    |                }
+   5)   9.803 us    |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.183 us    |                    __cond_resched();
+   5)   0.184 us    |                    should_failslab.constprop.0();
+   5)   2.412 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.463 us    |                    __memcg_slab_post_alloc_hook();
+   5)   4.078 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.276 us    |                    make_kuid();
+   5)   0.273 us    |                    make_kgid();
+   5)   0.184 us    |                    __init_rwsem();
+   5)   0.184 us    |                    __init_rwsem();
+   5)   0.568 us    |                    security_inode_alloc();
+   5)   2.423 us    |                  }
+   5)   6.987 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.182 us    |                _raw_spin_unlock();
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   8.657 us    |              }
+   5)   0.187 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.187 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.523 us    |                }
+   5)   0.855 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.187 us    |                    _raw_spin_lock();
+   5)   0.185 us    |                    _raw_spin_unlock();
+   5)   0.862 us    |                  }
+   5)   1.205 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.192 us    |                  d_flags_for_inode();
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.202 us    |                  _raw_spin_unlock();
+   5)   1.216 us    |                }
+   5)   0.183 us    |                _raw_spin_unlock();
+   5)   3.570 us    |              }
+   5)   0.192 us    |              up_write();
+   5) + 24.533 us   |            }
+   5) + 24.879 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.188 us    |                  _raw_spin_lock();
+   5)   0.188 us    |                  mntget();
+   5)   0.183 us    |                  _raw_spin_unlock();
+   5)   0.181 us    |                  mntput();
+   5)   1.752 us    |                }
+   5)               |                down_write() {
+   5)   0.187 us    |                  __cond_resched();
+   5)   0.521 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.184 us    |                    full_name_hash();
+   5)   0.456 us    |                    inode_permission();
+   5)   1.136 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.658 us    |                    d_lookup();
+   5)   0.994 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   3.213 us    |                    d_alloc_parallel();
+   5)   1.031 us    |                    simple_lookup();
+   5)   4.742 us    |                  }
+   5)   7.506 us    |                }
+   5) + 10.423 us   |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.182 us    |                    __cond_resched();
+   5)   0.183 us    |                    should_failslab.constprop.0();
+   5)   1.207 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.893 us    |                    __memcg_slab_post_alloc_hook();
+   5)   3.295 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.272 us    |                    make_kuid();
+   5)   0.276 us    |                    make_kgid();
+   5)   0.185 us    |                    __init_rwsem();
+   5)   0.183 us    |                    __init_rwsem();
+   5)   0.565 us    |                    security_inode_alloc();
+   5)   2.429 us    |                  }
+   5)   6.224 us    |                }
+   5)   0.184 us    |                _raw_spin_lock();
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   0.186 us    |                _raw_spin_lock();
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   7.900 us    |              }
+   5)   0.183 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.522 us    |                }
+   5)   0.857 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.184 us    |                    _raw_spin_lock();
+   5)   0.183 us    |                    _raw_spin_unlock();
+   5)   0.860 us    |                  }
+   5)   1.200 us    |                }
+   5)   0.186 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.193 us    |                  d_flags_for_inode();
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.183 us    |                  _raw_spin_unlock();
+   5)   1.197 us    |                }
+   5)   0.183 us    |                _raw_spin_unlock();
+   5)   3.553 us    |              }
+   5)   0.189 us    |              up_write();
+   5) + 24.217 us   |            }
+   5) + 24.552 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.183 us    |                  mntget();
+   5)   0.362 us    |                  _raw_spin_unlock();
+   5)   0.183 us    |                  mntput();
+   5)   1.697 us    |                }
+   5)               |                down_write() {
+   5)   0.186 us    |                  __cond_resched();
+   5)   0.521 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.186 us    |                    full_name_hash();
+   5)   0.457 us    |                    inode_permission();
+   5)   1.133 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.654 us    |                    d_lookup();
+   5)   0.987 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   2.702 us    |                    d_alloc_parallel();
+   5)   1.037 us    |                    simple_lookup();
+   5)   4.237 us    |                  }
+   5)   6.995 us    |                }
+   5)   9.855 us    |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.182 us    |                    __cond_resched();
+   5)   0.184 us    |                    should_failslab.constprop.0();
+   5)   1.208 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.480 us    |                    __memcg_slab_post_alloc_hook();
+   5)   2.866 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.264 us    |                    make_kuid();
+   5)   0.274 us    |                    make_kgid();
+   5)   0.184 us    |                    __init_rwsem();
+   5)   0.175 us    |                    __init_rwsem();
+   5)   0.563 us    |                    security_inode_alloc();
+   5)   2.434 us    |                  }
+   5)   5.784 us    |                }
+   5)   0.186 us    |                _raw_spin_lock();
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   0.184 us    |                _raw_spin_lock();
+   5)   0.185 us    |                _raw_spin_unlock();
+   5)   7.456 us    |              }
+   5)   0.185 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.523 us    |                }
+   5)   0.856 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.185 us    |                    _raw_spin_lock();
+   5)   0.184 us    |                    _raw_spin_unlock();
+   5)   0.859 us    |                  }
+   5)   1.200 us    |                }
+   5)   0.186 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.187 us    |                  d_flags_for_inode();
+   5)   0.186 us    |                  _raw_spin_lock();
+   5)   0.183 us    |                  _raw_spin_unlock();
+   5)   1.195 us    |                }
+   5)   0.185 us    |                _raw_spin_unlock();
+   5)   3.553 us    |              }
+   5)   0.186 us    |              up_write();
+   5) + 23.197 us   |            }
+   5) + 23.556 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.186 us    |                  _raw_spin_lock();
+   5)   0.184 us    |                  mntget();
+   5)   0.193 us    |                  _raw_spin_unlock();
+   5)   0.184 us    |                  mntput();
+   5)   1.760 us    |                }
+   5)               |                down_write() {
+   5)   0.188 us    |                  __cond_resched();
+   5)   0.521 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.192 us    |                    full_name_hash();
+   5)   0.457 us    |                    inode_permission();
+   5)   1.153 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.665 us    |                    d_lookup();
+   5)   1.001 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   3.294 us    |                    d_alloc_parallel();
+   5)   1.041 us    |                    simple_lookup();
+   5)   4.830 us    |                  }
+   5)   7.623 us    |                }
+   5) + 10.561 us   |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.183 us    |                    __cond_resched();
+   5)   0.184 us    |                    should_failslab.constprop.0();
+   5)   1.208 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.465 us    |                    __memcg_slab_post_alloc_hook();
+   5)   2.855 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.263 us    |                    make_kuid();
+   5)   0.274 us    |                    make_kgid();
+   5)   0.184 us    |                    __init_rwsem();
+   5)   0.183 us    |                    __init_rwsem();
+   5)   0.562 us    |                    security_inode_alloc();
+   5)   2.422 us    |                  }
+   5)   5.763 us    |                }
+   5)   0.186 us    |                _raw_spin_lock();
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   0.196 us    |                _raw_spin_lock();
+   5)   0.183 us    |                _raw_spin_unlock();
+   5)   7.445 us    |              }
+   5)   0.184 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.184 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.520 us    |                }
+   5)   0.853 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.184 us    |                    _raw_spin_lock();
+   5)   0.184 us    |                    _raw_spin_unlock();
+   5)   0.856 us    |                  }
+   5)   1.198 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.187 us    |                  d_flags_for_inode();
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.186 us    |                  _raw_spin_unlock();
+   5)   1.193 us    |                }
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   3.545 us    |              }
+   5)   0.187 us    |              up_write();
+   5) + 23.877 us   |            }
+   5) + 24.223 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.184 us    |                  _raw_spin_lock();
+   5)   0.183 us    |                  mntget();
+   5)   0.186 us    |                  _raw_spin_unlock();
+   5)   0.184 us    |                  mntput();
+   5)   1.529 us    |                }
+   5)               |                down_write() {
+   5)   0.562 us    |                  __cond_resched();
+   5)   0.899 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.193 us    |                    full_name_hash();
+   5)   0.457 us    |                    inode_permission();
+   5)   1.157 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.839 us    |                    d_lookup();
+   5)   1.175 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   2.835 us    |                    d_alloc_parallel();
+   5)   1.050 us    |                    simple_lookup();
+   5)   4.381 us    |                  }
+   5)   7.348 us    |                }
+   5) + 10.440 us   |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.185 us    |                    __cond_resched();
+   5)   0.184 us    |                    should_failslab.constprop.0();
+   5)   1.209 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.474 us    |                    __memcg_slab_post_alloc_hook();
+   5)   2.881 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.279 us    |                    make_kuid();
+   5)   0.274 us    |                    make_kgid();
+   5)   0.175 us    |                    __init_rwsem();
+   5)   0.179 us    |                    __init_rwsem();
+   5)   0.566 us    |                    security_inode_alloc();
+   5)   2.437 us    |                  }
+   5)   5.805 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.183 us    |                _raw_spin_unlock();
+   5)   7.476 us    |              }
+   5)   0.184 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.522 us    |                }
+   5)   0.857 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.185 us    |                    _raw_spin_lock();
+   5)   0.183 us    |                    _raw_spin_unlock();
+   5)   0.857 us    |                  }
+   5)   1.199 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.187 us    |                  d_flags_for_inode();
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   1.193 us    |                }
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   3.542 us    |              }
+   5)   0.185 us    |              up_write();
+   5) + 23.788 us   |            }
+   5) + 24.132 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.182 us    |                  mntget();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   0.183 us    |                  mntput();
+   5)   1.519 us    |                }
+   5)               |                down_write() {
+   5)   0.193 us    |                  __cond_resched();
+   5)   0.527 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.185 us    |                    full_name_hash();
+   5)   0.456 us    |                    inode_permission();
+   5)   1.135 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.663 us    |                    d_lookup();
+   5)   0.997 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   2.713 us    |                    d_alloc_parallel();
+   5)   1.040 us    |                    simple_lookup();
+   5)   4.249 us    |                  }
+   5)   7.235 us    |                }
+   5)   9.934 us    |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.183 us    |                    __cond_resched();
+   5)   0.184 us    |                    should_failslab.constprop.0();
+   5)   2.370 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.479 us    |                    __memcg_slab_post_alloc_hook();
+   5)   4.043 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.267 us    |                    make_kuid();
+   5)   0.275 us    |                    make_kgid();
+   5)   0.186 us    |                    __init_rwsem();
+   5)   0.178 us    |                    __init_rwsem();
+   5)   0.566 us    |                    security_inode_alloc();
+   5)   2.432 us    |                  }
+   5)   6.962 us    |                }
+   5)   0.184 us    |                _raw_spin_lock();
+   5)   0.185 us    |                _raw_spin_unlock();
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.186 us    |                _raw_spin_unlock();
+   5)   8.638 us    |              }
+   5)   0.186 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.528 us    |                }
+   5)   0.864 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.189 us    |                    _raw_spin_lock();
+   5)   0.183 us    |                    _raw_spin_unlock();
+   5)   0.863 us    |                  }
+   5)   1.207 us    |                }
+   5)   0.184 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.189 us    |                  d_flags_for_inode();
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   1.195 us    |                }
+   5)   0.185 us    |                _raw_spin_unlock();
+   5)   3.558 us    |              }
+   5)   0.186 us    |              up_write();
+   5) + 24.509 us   |            }
+   5) + 24.846 us   |          }
+   5)               |          debugfs_create_file() {
+   5)               |            __debugfs_create_file() {
+   5)               |              start_creating.part.0() {
+   5)               |                simple_pin_fs() {
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.183 us    |                  mntget();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   0.182 us    |                  mntput();
+   5)   1.521 us    |                }
+   5)               |                down_write() {
+   5)   0.183 us    |                  __cond_resched();
+   5)   0.519 us    |                }
+   5)               |                lookup_one_len() {
+   5)               |                  lookup_one_common() {
+   5)   0.185 us    |                    full_name_hash();
+   5)   0.674 us    |                    inode_permission();
+   5)   1.358 us    |                  }
+   5)               |                  lookup_dcache() {
+   5)   0.663 us    |                    d_lookup();
+   5)   0.997 us    |                  }
+   5)               |                  __lookup_slow() {
+   5)   2.681 us    |                    d_alloc_parallel();
+   5)   1.035 us    |                    simple_lookup();
+   5)   4.210 us    |                  }
+   5)   7.203 us    |                }
+   5)   9.896 us    |              }
+   5)               |              new_inode() {
+   5)               |                alloc_inode() {
+   5)               |                  kmem_cache_alloc_lru() {
+   5)   0.183 us    |                    __cond_resched();
+   5)   0.184 us    |                    should_failslab.constprop.0();
+   5)   1.206 us    |                    __memcg_slab_pre_alloc_hook();
+   5)   0.857 us    |                    __memcg_slab_post_alloc_hook();
+   5)   3.269 us    |                  }
+   5)               |                  inode_init_always() {
+   5)   0.265 us    |                    make_kuid();
+   5)   0.273 us    |                    make_kgid();
+   5)   0.185 us    |                    __init_rwsem();
+   5)   0.179 us    |                    __init_rwsem();
+   5)   0.564 us    |                    security_inode_alloc();
+   5)   2.421 us    |                  }
+   5)   6.175 us    |                }
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.183 us    |                _raw_spin_unlock();
+   5)   0.185 us    |                _raw_spin_lock();
+   5)   0.188 us    |                _raw_spin_unlock();
+   5)   7.854 us    |              }
+   5)   0.185 us    |              get_next_ino();
+   5)               |              simple_inode_init_ts() {
+   5)               |                inode_set_ctime_current() {
+   5)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   5)   0.526 us    |                }
+   5)   0.860 us    |              }
+   5)               |              d_instantiate() {
+   5)               |                security_d_instantiate() {
+   5)               |                  apparmor_d_instantiate() {
+   5)   0.187 us    |                    _raw_spin_lock();
+   5)   0.186 us    |                    _raw_spin_unlock();
+   5)   0.861 us    |                  }
+   5)   1.205 us    |                }
+   5)   0.187 us    |                _raw_spin_lock();
+   5)               |                __d_instantiate() {
+   5)   0.187 us    |                  d_flags_for_inode();
+   5)   0.185 us    |                  _raw_spin_lock();
+   5)   0.184 us    |                  _raw_spin_unlock();
+   5)   1.198 us    |                }
+   5)   0.184 us    |                _raw_spin_unlock();
+   5)   3.559 us    |              }
+   5)   0.185 us    |              up_write();
+   5) + 23.643 us   |            }
+   5) + 23.987 us   |          }
+   5) ! 365.708 us  |        }
+   5) ! 373.729 us  |      }
+   5) ! 414.162 us  |    }
+   5) ! 418.214 us  |  }
+   3) * 11680.19 us |                  }
+   3)   0.396 us    |                  _raw_spin_lock_irq();
+   3)   0.225 us    |                  _raw_spin_unlock_irq();
+   3) * 11682.74 us |                }
+   3) * 11685.27 us |              }
+   3) * 11687.06 us |            }
+   3) * 11688.72 us |          }
+   3) * 11689.38 us |        }
+   3)               |        ieee80211_key_replace [mac80211]() {
+   3)   0.231 us    |          ieee80211_pairwise_rekey [mac80211]();
+   3)               |          ieee80211_key_enable_hw_accel [mac80211]() {
+   3)   0.191 us    |            __cond_resched();
+   3)   0.969 us    |          }
+   3)               |          _ieee80211_set_tx_key [mac80211]() {
+   3)               |            ieee80211_check_fast_xmit [mac80211]() {
+   3)   0.187 us    |              _raw_spin_lock_bh();
+   3)               |              _raw_spin_unlock_bh() {
+   3)   0.200 us    |                __local_bh_enable_ip();
+   3)   0.551 us    |              }
+   3)   1.255 us    |            }
+   3)   1.732 us    |          }
+   3)               |          ieee80211_check_fast_rx [mac80211]() {
+   3)   0.182 us    |            _raw_spin_lock_bh();
+   3)               |            _raw_spin_unlock_bh() {
+   3)   0.184 us    |              __local_bh_enable_ip();
+   3)   0.515 us    |            }
+   3)   1.533 us    |          }
+   3)   6.462 us    |        }
+   3)               |        ieee80211_debugfs_key_add [mac80211]() {
+   3)               |          debugfs_create_dir() {
+   3)               |            start_creating.part.0() {
+   3)               |              simple_pin_fs() {
+   3)   0.326 us    |                _raw_spin_lock();
+   3)   0.331 us    |                mntget();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   0.187 us    |                mntput();
+   3)   1.961 us    |              }
+   3)               |              down_write() {
+   3)   0.182 us    |                __cond_resched();
+   3)   0.860 us    |              }
+   3)               |              lookup_one_len() {
+   3)               |                lookup_one_common() {
+   3)   0.190 us    |                  full_name_hash();
+   3)               |                  inode_permission() {
+   3)   0.733 us    |                    generic_permission();
+   3)   0.246 us    |                    security_inode_permission();
+   3)   1.624 us    |                  }
+   3)   2.478 us    |                }
+   3)               |                lookup_dcache() {
+   3)               |                  d_lookup() {
+   3)   1.185 us    |                    __d_lookup();
+   3)   1.620 us    |                  }
+   3)   2.042 us    |                }
+   3)               |                __lookup_slow() {
+   3)               |                  d_alloc_parallel() {
+   3)   4.766 us    |                    d_alloc();
+   3)   0.206 us    |                    __rcu_read_lock();
+   3)   0.214 us    |                    __d_lookup_rcu();
+   3)   0.183 us    |                    __rcu_read_unlock();
+   3)   6.723 us    |                  }
+   3)               |                  simple_lookup() {
+   3)   1.231 us    |                    d_add();
+   3)   1.587 us    |                  }
+   3)   9.106 us    |                }
+   3) + 15.106 us   |              }
+   3) + 18.761 us   |            }
+   3)               |            new_inode() {
+   3)               |              alloc_inode() {
+   3)               |                kmem_cache_alloc_lru() {
+   3)   0.180 us    |                  __cond_resched();
+   3)   0.181 us    |                  should_failslab.constprop.0();
+   3)               |                  __memcg_slab_pre_alloc_hook() {
+   3)   0.182 us    |                    __rcu_read_lock();
+   3)   0.182 us    |                    __rcu_read_lock();
+   3)   0.189 us    |                    __rcu_read_unlock();
+   3)   0.197 us    |                    __rcu_read_unlock();
+   3)   0.672 us    |                    memcg_list_lru_alloc();
+   3)   0.182 us    |                    __rcu_read_lock();
+   3)   0.187 us    |                    __rcu_read_unlock();
+   3)   0.284 us    |                    obj_cgroup_charge();
+   3)   3.492 us    |                  }
+   3)               |                  __memcg_slab_post_alloc_hook() {
+   3)   0.190 us    |                    __rcu_read_lock();
+   3)   0.188 us    |                    __rcu_read_unlock();
+   3)   0.210 us    |                    mod_objcg_state();
+   3)   1.531 us    |                  }
+   3)   6.465 us    |                }
+   3)               |                inode_init_always() {
+   3)               |                  make_kuid() {
+   3)   0.334 us    |                    map_id_range_down();
+   3)   0.727 us    |                  }
+   3)               |                  make_kgid() {
+   3)   0.199 us    |                    map_id_range_down();
+   3)   0.533 us    |                  }
+   3)   0.183 us    |                  __init_rwsem();
+   3)   0.176 us    |                  __init_rwsem();
+   3)               |                  security_inode_alloc() {
+   3)   0.482 us    |                    kmem_cache_alloc();
+   3)   0.493 us    |                    apparmor_inode_alloc_security();
+   3)   1.714 us    |                  }
+   3)   4.532 us    |                }
+   3) + 11.671 us   |              }
+   3)   0.192 us    |              _raw_spin_lock();
+   3)   0.183 us    |              _raw_spin_unlock();
+   3)   0.240 us    |              _raw_spin_lock();
+   3)   0.174 us    |              _raw_spin_unlock();
+   3) + 13.542 us   |            }
+   3)   0.184 us    |            get_next_ino();
+   3)               |            simple_inode_init_ts() {
+   3)               |              inode_set_ctime_current() {
+   3)   0.204 us    |                ktime_get_coarse_real_ts64();
+   3)   0.651 us    |              }
+   3)   1.051 us    |            }
+   3)   0.184 us    |            inc_nlink();
+   3)               |            d_instantiate() {
+   3)               |              security_d_instantiate() {
+   3)               |                apparmor_d_instantiate() {
+   3)   0.195 us    |                  _raw_spin_lock();
+   3)   0.191 us    |                  _raw_spin_unlock();
+   3)   1.306 us    |                }
+   3)   1.898 us    |              }
+   3)   0.186 us    |              _raw_spin_lock();
+   3)               |              __d_instantiate() {
+   3)   0.208 us    |                d_flags_for_inode();
+   3)   0.183 us    |                _raw_spin_lock();
+   3)   0.185 us    |                _raw_spin_unlock();
+   3)   1.249 us    |              }
+   3)   0.184 us    |              _raw_spin_unlock();
+   3)   4.400 us    |            }
+   3)   0.186 us    |            inc_nlink();
+   3)   0.186 us    |            up_write();
+   3) + 40.646 us   |          }
+   3)               |          debugfs_create_symlink() {
+   3)               |            kstrdup() {
+   3)               |              __kmalloc_node_track_caller() {
+   3)   0.356 us    |                __cond_resched();
+   3)   0.192 us    |                should_failslab.constprop.0();
+   3)   1.422 us    |              }
+   3)   1.824 us    |            }
+   3)               |            start_creating.part.0() {
+   3)               |              simple_pin_fs() {
+   3)   0.183 us    |                _raw_spin_lock();
+   3)   0.184 us    |                mntget();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   0.201 us    |                mntput();
+   3)   1.539 us    |              }
+   3)               |              down_write() {
+   3)   0.182 us    |                __cond_resched();
+   3)   0.541 us    |              }
+   3)               |              lookup_one_len() {
+   3)               |                lookup_one_common() {
+   3)   0.185 us    |                  full_name_hash();
+   3)               |                  inode_permission() {
+   3)   0.184 us    |                    _raw_spin_lock();
+   3)   0.189 us    |                    _raw_spin_unlock();
+   3)   0.286 us    |                    generic_permission();
+   3)   0.184 us    |                    security_inode_permission();
+   3)   1.671 us    |                  }
+   3)   2.365 us    |                }
+   3)               |                lookup_dcache() {
+   3)               |                  d_lookup() {
+   3)   0.593 us    |                    __d_lookup();
+   3)   0.927 us    |                  }
+   3)   1.259 us    |                }
+   3)               |                __lookup_slow() {
+   3)               |                  d_alloc_parallel() {
+   3)   2.537 us    |                    d_alloc();
+   3)   0.185 us    |                    __rcu_read_lock();
+   3)   0.187 us    |                    __d_lookup_rcu();
+   3)   0.182 us    |                    __rcu_read_unlock();
+   3)   3.960 us    |                  }
+   3)               |                  simple_lookup() {
+   3)   0.985 us    |                    d_add();
+   3)   1.346 us    |                  }
+   3)   5.803 us    |                }
+   3) + 10.067 us   |              }
+   3) + 12.800 us   |            }
+   3)               |            new_inode() {
+   3)               |              alloc_inode() {
+   3)               |                kmem_cache_alloc_lru() {
+   3)   0.181 us    |                  __cond_resched();
+   3)   0.181 us    |                  should_failslab.constprop.0();
+   3)               |                  __memcg_slab_pre_alloc_hook() {
+   3)   0.181 us    |                    __rcu_read_lock();
+   3)   0.182 us    |                    __rcu_read_lock();
+   3)   0.190 us    |                    __rcu_read_unlock();
+   3)   0.188 us    |                    __rcu_read_unlock();
+   3)   0.391 us    |                    memcg_list_lru_alloc();
+   3)   0.183 us    |                    __rcu_read_lock();
+   3)   0.196 us    |                    __rcu_read_unlock();
+   3)   0.275 us    |                    obj_cgroup_charge();
+   3)   3.173 us    |                  }
+   3)               |                  __memcg_slab_post_alloc_hook() {
+   3)   0.181 us    |                    __rcu_read_lock();
+   3)   0.184 us    |                    __rcu_read_unlock();
+   3)   0.190 us    |                    mod_objcg_state();
+   3)   1.206 us    |                  }
+   3)   5.713 us    |                }
+   3)               |                inode_init_always() {
+   3)               |                  make_kuid() {
+   3)   0.186 us    |                    map_id_range_down();
+   3)   0.508 us    |                  }
+   3)               |                  make_kgid() {
+   3)   0.193 us    |                    map_id_range_down();
+   3)   0.525 us    |                  }
+   3)   0.190 us    |                  __init_rwsem();
+   3)   0.177 us    |                  __init_rwsem();
+   3)               |                  security_inode_alloc() {
+   3)   0.499 us    |                    kmem_cache_alloc();
+   3)   0.185 us    |                    apparmor_inode_alloc_security();
+   3)   1.177 us    |                  }
+   3)   3.532 us    |                }
+   3)   9.739 us    |              }
+   3)   0.184 us    |              _raw_spin_lock();
+   3)   0.183 us    |              _raw_spin_unlock();
+   3)   0.183 us    |              _raw_spin_lock();
+   3)   0.180 us    |              _raw_spin_unlock();
+   3) + 11.435 us   |            }
+   3)   0.184 us    |            get_next_ino();
+   3)               |            simple_inode_init_ts() {
+   3)               |              inode_set_ctime_current() {
+   3)   0.184 us    |                ktime_get_coarse_real_ts64();
+   3)   0.527 us    |              }
+   3)   0.861 us    |            }
+   3)               |            d_instantiate() {
+   3)               |              security_d_instantiate() {
+   3)               |                apparmor_d_instantiate() {
+   3)   0.187 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.881 us    |                }
+   3)   1.231 us    |              }
+   3)   0.184 us    |              _raw_spin_lock();
+   3)               |              __d_instantiate() {
+   3)   0.274 us    |                d_flags_for_inode();
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   1.275 us    |              }
+   3)   0.183 us    |              _raw_spin_unlock();
+   3)   3.674 us    |            }
+   3)   0.186 us    |            up_write();
+   3) + 32.351 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.182 us    |                  mntget();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   0.181 us    |                  mntput();
+   3)   1.525 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.517 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.185 us    |                    full_name_hash();
+   3)   0.489 us    |                    inode_permission();
+   3)   1.181 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.672 us    |                    d_lookup();
+   3)   1.010 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.805 us    |                    d_alloc_parallel();
+   3)   1.054 us    |                    simple_lookup();
+   3)   4.352 us    |                  }
+   3)   7.188 us    |                }
+   3)   9.903 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.189 us    |                    __cond_resched();
+   3)   0.188 us    |                    should_failslab.constprop.0();
+   3)   1.220 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.486 us    |                    __memcg_slab_post_alloc_hook();
+   3)   3.039 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.276 us    |                    make_kuid();
+   3)   0.279 us    |                    make_kgid();
+   3)   0.185 us    |                    __init_rwsem();
+   3)   0.179 us    |                    __init_rwsem();
+   3)   0.606 us    |                    security_inode_alloc();
+   3)   2.559 us    |                  }
+   3)   6.092 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.190 us    |                _raw_spin_unlock();
+   3)   0.189 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   7.784 us    |              }
+   3)   0.189 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.521 us    |                }
+   3)   0.853 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.185 us    |                    _raw_spin_lock();
+   3)   0.185 us    |                    _raw_spin_unlock();
+   3)   0.859 us    |                  }
+   3)   1.204 us    |                }
+   3)   0.186 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.198 us    |                  d_flags_for_inode();
+   3)   0.199 us    |                  _raw_spin_lock();
+   3)   0.185 us    |                  _raw_spin_unlock();
+   3)   1.224 us    |                }
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   3.593 us    |              }
+   3)   0.188 us    |              up_write();
+   3) + 23.650 us   |            }
+   3) + 23.996 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.188 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.184 us    |                  mntput();
+   3)   1.528 us    |                }
+   3)               |                down_write() {
+   3)   0.184 us    |                  __cond_resched();
+   3)   0.519 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.186 us    |                    full_name_hash();
+   3)   0.464 us    |                    inode_permission();
+   3)   1.153 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.656 us    |                    d_lookup();
+   3)   0.992 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.809 us    |                    d_alloc_parallel();
+   3)   1.020 us    |                    simple_lookup();
+   3)   4.332 us    |                  }
+   3)   7.114 us    |                }
+   3)   9.816 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.183 us    |                    __cond_resched();
+   3)   0.182 us    |                    should_failslab.constprop.0();
+   3)   1.203 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.469 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.839 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.266 us    |                    make_kuid();
+   3)   0.280 us    |                    make_kgid();
+   3)   0.184 us    |                    __init_rwsem();
+   3)   0.185 us    |                    __init_rwsem();
+   3)   0.567 us    |                    security_inode_alloc();
+   3)   2.439 us    |                  }
+   3)   5.780 us    |                }
+   3)   0.193 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.188 us    |                _raw_spin_unlock();
+   3)   7.598 us    |              }
+   3)   0.185 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.191 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.534 us    |                }
+   3)   0.866 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.185 us    |                    _raw_spin_lock();
+   3)   0.184 us    |                    _raw_spin_unlock();
+   3)   0.858 us    |                  }
+   3)   1.200 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.194 us    |                  d_flags_for_inode();
+   3)   0.182 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   1.197 us    |                }
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   3.549 us    |              }
+   3)   0.187 us    |              up_write();
+   3) + 23.335 us   |            }
+   3) + 23.681 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.186 us    |                  _raw_spin_lock();
+   3)   0.182 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.182 us    |                  mntput();
+   3)   1.537 us    |                }
+   3)               |                down_write() {
+   3)   0.182 us    |                  __cond_resched();
+   3)   0.530 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.189 us    |                    full_name_hash();
+   3)   0.455 us    |                    inode_permission();
+   3)   1.142 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.564 us    |                    d_lookup();
+   3)   0.898 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.777 us    |                    d_alloc_parallel();
+   3)   1.020 us    |                    simple_lookup();
+   3)   4.293 us    |                  }
+   3)   6.971 us    |                }
+   3)   9.689 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.184 us    |                    __cond_resched();
+   3)   0.184 us    |                    should_failslab.constprop.0();
+   3)   7.484 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.478 us    |                    __memcg_slab_post_alloc_hook();
+   3)   9.280 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.264 us    |                    make_kuid();
+   3)   0.276 us    |                    make_kgid();
+   3)   0.184 us    |                    __init_rwsem();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.574 us    |                    security_inode_alloc();
+   3)   2.463 us    |                  }
+   3) + 12.242 us   |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.309 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3) + 14.049 us   |              }
+   3)   0.186 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.523 us    |                }
+   3)   0.862 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.186 us    |                    _raw_spin_lock();
+   3)   0.183 us    |                    _raw_spin_unlock();
+   3)   0.858 us    |                  }
+   3)   1.204 us    |                }
+   3)   0.192 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.191 us    |                  d_flags_for_inode();
+   3)   0.189 us    |                  _raw_spin_lock();
+   3)   0.189 us    |                  _raw_spin_unlock();
+   3)   1.207 us    |                }
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   3.567 us    |              }
+   3)   0.192 us    |              up_write();
+   3) + 29.644 us   |            }
+   3) + 29.987 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.185 us    |                  mntget();
+   3)   0.185 us    |                  _raw_spin_unlock();
+   3)   0.180 us    |                  mntput();
+   3)   1.533 us    |                }
+   3)               |                down_write() {
+   3)   0.182 us    |                  __cond_resched();
+   3)   0.516 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.207 us    |                    full_name_hash();
+   3)   0.456 us    |                    inode_permission();
+   3)   1.173 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.828 us    |                    d_lookup();
+   3)   1.161 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.842 us    |                    d_alloc_parallel();
+   3)   1.053 us    |                    simple_lookup();
+   3)   4.396 us    |                  }
+   3)   7.367 us    |                }
+   3) + 10.090 us   |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.185 us    |                    __cond_resched();
+   3)   0.182 us    |                    should_failslab.constprop.0();
+   3)   1.198 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   1.201 us    |                    __memcg_slab_post_alloc_hook();
+   3)   3.582 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.269 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.185 us    |                    __init_rwsem();
+   3)   0.176 us    |                    __init_rwsem();
+   3)   0.568 us    |                    security_inode_alloc();
+   3)   2.437 us    |                  }
+   3)   6.503 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.192 us    |                _raw_spin_unlock();
+   3)   0.186 us    |                _raw_spin_lock();
+   3)   0.192 us    |                _raw_spin_unlock();
+   3)   8.357 us    |              }
+   3)   0.185 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.523 us    |                }
+   3)   0.856 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.187 us    |                    _raw_spin_lock();
+   3)   0.184 us    |                    _raw_spin_unlock();
+   3)   0.869 us    |                  }
+   3)   1.214 us    |                }
+   3)   0.186 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.190 us    |                  d_flags_for_inode();
+   3)   0.191 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   1.205 us    |                }
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   3.588 us    |              }
+   3)   0.186 us    |              up_write();
+   3) + 24.360 us   |            }
+   3) + 24.697 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.186 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.183 us    |                  mntput();
+   3)   1.525 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.520 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.186 us    |                    full_name_hash();
+   3)   0.459 us    |                    inode_permission();
+   3)   1.152 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.655 us    |                    d_lookup();
+   3)   0.988 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.800 us    |                    d_alloc_parallel();
+   3)   1.044 us    |                    simple_lookup();
+   3)   4.343 us    |                  }
+   3)   7.121 us    |                }
+   3)   9.817 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.185 us    |                    __cond_resched();
+   3)   0.182 us    |                    should_failslab.constprop.0();
+   3)   1.192 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.486 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.999 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.265 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.184 us    |                    __init_rwsem();
+   3)   0.178 us    |                    __init_rwsem();
+   3)   0.570 us    |                    security_inode_alloc();
+   3)   2.432 us    |                  }
+   3)   5.914 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   7.584 us    |              }
+   3)   0.190 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.526 us    |                }
+   3)   0.861 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.188 us    |                    _raw_spin_lock();
+   3)   0.184 us    |                    _raw_spin_unlock();
+   3)   0.863 us    |                  }
+   3)   1.206 us    |                }
+   3)   0.186 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.187 us    |                  d_flags_for_inode();
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   1.198 us    |                }
+   3)   0.196 us    |                _raw_spin_unlock();
+   3)   3.573 us    |              }
+   3)   0.187 us    |              up_write();
+   3) + 23.408 us   |            }
+   3) + 23.747 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.187 us    |                  _raw_spin_lock();
+   3)   0.185 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.182 us    |                  mntput();
+   3)   1.527 us    |                }
+   3)               |                down_write() {
+   3)   0.184 us    |                  __cond_resched();
+   3)   0.520 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.198 us    |                    full_name_hash();
+   3)   0.460 us    |                    inode_permission();
+   3)   1.165 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.799 us    |                    d_lookup();
+   3)   1.133 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.773 us    |                    d_alloc_parallel();
+   3)   1.036 us    |                    simple_lookup();
+   3)   4.303 us    |                  }
+   3)   7.238 us    |                }
+   3)   9.938 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.186 us    |                    __cond_resched();
+   3)   0.183 us    |                    should_failslab.constprop.0();
+   3)   1.195 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.462 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.829 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.266 us    |                    make_kuid();
+   3)   0.273 us    |                    make_kgid();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.185 us    |                    __init_rwsem();
+   3)   0.568 us    |                    security_inode_alloc();
+   3)   2.430 us    |                  }
+   3)   5.746 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.185 us    |                _raw_spin_unlock();
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   7.419 us    |              }
+   3)   0.197 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.183 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.519 us    |                }
+   3)   0.951 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.188 us    |                    _raw_spin_lock();
+   3)   0.185 us    |                    _raw_spin_unlock();
+   3)   0.862 us    |                  }
+   3)   1.206 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.188 us    |                  d_flags_for_inode();
+   3)   0.184 us    |                  _raw_spin_lock();
+   3)   0.186 us    |                  _raw_spin_unlock();
+   3)   1.195 us    |                }
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   3.551 us    |              }
+   3)   0.187 us    |              up_write();
+   3) + 23.349 us   |            }
+   3) + 23.690 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.187 us    |                  _raw_spin_lock();
+   3)   0.185 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.181 us    |                  mntput();
+   3)   1.524 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.520 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.191 us    |                    full_name_hash();
+   3)   0.459 us    |                    inode_permission();
+   3)   1.154 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.583 us    |                    d_lookup();
+   3)   0.930 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.799 us    |                    d_alloc_parallel();
+   3)   1.031 us    |                    simple_lookup();
+   3)   4.331 us    |                  }
+   3)   7.051 us    |                }
+   3)   9.742 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.185 us    |                    __cond_resched();
+   3)   0.183 us    |                    should_failslab.constprop.0();
+   3)   1.199 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.461 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.843 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.275 us    |                    make_kuid();
+   3)   0.276 us    |                    make_kgid();
+   3)   0.184 us    |                    __init_rwsem();
+   3)   0.187 us    |                    __init_rwsem();
+   3)   0.564 us    |                    security_inode_alloc();
+   3)   2.428 us    |                  }
+   3)   5.757 us    |                }
+   3)   0.186 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.185 us    |                _raw_spin_unlock();
+   3)   7.427 us    |              }
+   3)   0.184 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.187 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.538 us    |                }
+   3)   1.025 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.184 us    |                    _raw_spin_lock();
+   3)   0.182 us    |                    _raw_spin_unlock();
+   3)   0.854 us    |                  }
+   3)   1.197 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.187 us    |                  d_flags_for_inode();
+   3)   0.183 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   1.193 us    |                }
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   3.561 us    |              }
+   3)   0.187 us    |              up_write();
+   3) + 23.225 us   |            }
+   3) + 23.560 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.186 us    |                  _raw_spin_lock();
+   3)   0.185 us    |                  mntget();
+   3)   0.185 us    |                  _raw_spin_unlock();
+   3)   0.181 us    |                  mntput();
+   3)   1.522 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.517 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.183 us    |                    full_name_hash();
+   3)   0.457 us    |                    inode_permission();
+   3)   1.138 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.759 us    |                    d_lookup();
+   3)   1.091 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   3.730 us    |                    d_alloc_parallel();
+   3)   1.042 us    |                    simple_lookup();
+   3)   5.270 us    |                  }
+   3)   8.132 us    |                }
+   3) + 10.839 us   |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.185 us    |                    __cond_resched();
+   3)   0.185 us    |                    should_failslab.constprop.0();
+   3)   2.451 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.234 us    |                    ___slab_alloc();
+   3)   0.478 us    |                    __memcg_slab_post_alloc_hook();
+   3)   4.519 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.267 us    |                    make_kuid();
+   3)   0.277 us    |                    make_kgid();
+   3)   0.188 us    |                    __init_rwsem();
+   3)   0.184 us    |                    __init_rwsem();
+   3)   0.578 us    |                    security_inode_alloc();
+   3)   2.449 us    |                  }
+   3)   7.454 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   0.188 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   9.132 us    |              }
+   3)   0.183 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.521 us    |                }
+   3)   0.865 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.187 us    |                    _raw_spin_lock();
+   3)   0.186 us    |                    _raw_spin_unlock();
+   3)   0.861 us    |                  }
+   3)   1.207 us    |                }
+   3)   0.183 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.188 us    |                  d_flags_for_inode();
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.185 us    |                  _raw_spin_unlock();
+   3)   1.195 us    |                }
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   3.582 us    |              }
+   3)   0.187 us    |              up_write();
+   3) + 26.028 us   |            }
+   3) + 26.365 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.187 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.186 us    |                  mntput();
+   3)   1.532 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.533 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.192 us    |                    full_name_hash();
+   3)   0.453 us    |                    inode_permission();
+   3)   1.143 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.658 us    |                    d_lookup();
+   3)   0.991 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.885 us    |                    d_alloc_parallel();
+   3)   1.039 us    |                    simple_lookup();
+   3)   4.416 us    |                  }
+   3)   7.182 us    |                }
+   3)   9.926 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.182 us    |                    __cond_resched();
+   3)   0.182 us    |                    should_failslab.constprop.0();
+   3)   1.192 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.895 us    |                    __memcg_slab_post_alloc_hook();
+   3)   3.310 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.265 us    |                    make_kuid();
+   3)   0.275 us    |                    make_kgid();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.184 us    |                    __init_rwsem();
+   3)   0.566 us    |                    security_inode_alloc();
+   3)   2.424 us    |                  }
+   3)   6.216 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   7.884 us    |              }
+   3)   0.186 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.187 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.526 us    |                }
+   3)   0.862 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.477 us    |                    _raw_spin_lock();
+   3)   0.184 us    |                    _raw_spin_unlock();
+   3)   1.152 us    |                  }
+   3)   1.497 us    |                }
+   3)   0.183 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.188 us    |                  d_flags_for_inode();
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   1.197 us    |                }
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   3.871 us    |              }
+   3)   0.187 us    |              up_write();
+   3) + 24.046 us   |            }
+   3) + 24.387 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.187 us    |                  _raw_spin_lock();
+   3)   0.186 us    |                  mntget();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   0.182 us    |                  mntput();
+   3)   1.523 us    |                }
+   3)               |                down_write() {
+   3)   0.184 us    |                  __cond_resched();
+   3)   0.519 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.191 us    |                    full_name_hash();
+   3)   0.457 us    |                    inode_permission();
+   3)   1.160 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.657 us    |                    d_lookup();
+   3)   0.989 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.752 us    |                    d_alloc_parallel();
+   3)   1.023 us    |                    simple_lookup();
+   3)   4.267 us    |                  }
+   3)   7.052 us    |                }
+   3)   9.759 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.182 us    |                    __cond_resched();
+   3)   0.182 us    |                    should_failslab.constprop.0();
+   3)   1.191 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.471 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.823 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.276 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.567 us    |                    security_inode_alloc();
+   3)   2.435 us    |                  }
+   3)   5.744 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   7.409 us    |              }
+   3)   0.186 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.528 us    |                }
+   3)   0.861 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.193 us    |                    _raw_spin_lock();
+   3)   0.183 us    |                    _raw_spin_unlock();
+   3)   1.135 us    |                  }
+   3)   1.476 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.187 us    |                  d_flags_for_inode();
+   3)   0.188 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   1.200 us    |                }
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   3.828 us    |              }
+   3)   0.186 us    |              up_write();
+   3) + 23.331 us   |            }
+   3) + 23.667 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.188 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  mntget();
+   3)   0.185 us    |                  _raw_spin_unlock();
+   3)   0.183 us    |                  mntput();
+   3)   1.521 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.518 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.189 us    |                    full_name_hash();
+   3)   0.457 us    |                    inode_permission();
+   3)   1.143 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.664 us    |                    d_lookup();
+   3)   0.998 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.825 us    |                    d_alloc_parallel();
+   3)   1.026 us    |                    simple_lookup();
+   3)   4.344 us    |                  }
+   3)   7.120 us    |                }
+   3)   9.807 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.182 us    |                    __cond_resched();
+   3)   0.183 us    |                    should_failslab.constprop.0();
+   3)   1.194 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.463 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.822 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.263 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.176 us    |                    __init_rwsem();
+   3)   0.568 us    |                    security_inode_alloc();
+   3)   2.440 us    |                  }
+   3)   5.749 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.181 us    |                _raw_spin_unlock();
+   3)   7.418 us    |              }
+   3)   0.185 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.188 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.526 us    |                }
+   3)   0.860 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.184 us    |                    _raw_spin_lock();
+   3)   0.182 us    |                    _raw_spin_unlock();
+   3)   0.858 us    |                  }
+   3)   1.199 us    |                }
+   3)   0.187 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.187 us    |                  d_flags_for_inode();
+   3)   0.183 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   1.190 us    |                }
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   4.007 us    |              }
+   3)   0.186 us    |              up_write();
+   3) + 23.562 us   |            }
+   3) + 23.916 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  mntget();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   0.181 us    |                  mntput();
+   3)   1.514 us    |                }
+   3)               |                down_write() {
+   3)   0.182 us    |                  __cond_resched();
+   3)   0.517 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.184 us    |                    full_name_hash();
+   3)   0.460 us    |                    inode_permission();
+   3)   1.133 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.603 us    |                    d_lookup();
+   3)   0.936 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.683 us    |                    d_alloc_parallel();
+   3)   1.023 us    |                    simple_lookup();
+   3)   4.197 us    |                  }
+   3)   6.902 us    |                }
+   3)   9.587 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.185 us    |                    __cond_resched();
+   3)   0.182 us    |                    should_failslab.constprop.0();
+   3)   1.195 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.472 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.838 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.274 us    |                    make_kuid();
+   3)   0.275 us    |                    make_kgid();
+   3)   0.184 us    |                    __init_rwsem();
+   3)   0.187 us    |                    __init_rwsem();
+   3)   0.569 us    |                    security_inode_alloc();
+   3)   2.448 us    |                  }
+   3)   5.773 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   7.444 us    |              }
+   3)   0.184 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.522 us    |                }
+   3)   0.855 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.187 us    |                    _raw_spin_lock();
+   3)   0.184 us    |                    _raw_spin_unlock();
+   3)   0.860 us    |                  }
+   3)   1.204 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.193 us    |                  d_flags_for_inode();
+   3)   0.184 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   1.286 us    |                }
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   3.643 us    |              }
+   3)   0.186 us    |              up_write();
+   3) + 22.996 us   |            }
+   3) + 23.331 us   |          }
+   3) ! 372.364 us  |        }
+   3) * 12069.92 us |      }
+   3) * 12397.76 us |    }
+   3) * 12406.81 us |  }
+   3)               |  nl80211_new_key [cfg80211]() {
+   3)               |    nl80211_parse_key [cfg80211]() {
+   3)   0.577 us    |      nl80211_parse_key_new.constprop.0 [cfg80211]();
+   3)   1.272 us    |    }
+   3)               |    cfg80211_validate_key_settings [cfg80211]() {
+   3)   0.255 us    |      cfg80211_valid_key_idx [cfg80211]();
+   3)   0.791 us    |    }
+   3)   0.253 us    |    nl80211_key_allowed [cfg80211]();
+   3)   0.281 us    |    nl80211_validate_key_link_id [cfg80211]();
+   3)               |    ieee80211_add_key [mac80211]() {
+   3)               |      ieee80211_key_alloc [mac80211]() {
+   3)               |        __kmalloc() {
+   3)   0.270 us    |          __cond_resched();
+   3)   0.191 us    |          should_failslab.constprop.0();
+   3)   1.040 us    |          irq_enter_rcu();
+   3)               |          __sysvec_apic_timer_interrupt() {
+   3)               |            hrtimer_interrupt() {
+   3)   0.238 us    |              _raw_spin_lock_irqsave();
+   3)   0.286 us    |              ktime_get_update_offsets_now();
+   3)               |              __hrtimer_run_queues() {
+   3)   0.447 us    |                __remove_hrtimer();
+   3)   0.186 us    |                _raw_spin_unlock_irqrestore();
+   3)               |                tick_nohz_highres_handler() {
+   3)   0.253 us    |                  ktime_get();
+   3)               |                  tick_sched_do_timer() {
+   3)   2.308 us    |                    tick_do_update_jiffies64();
+   3)   2.677 us    |                  }
+   3)               |                  tick_sched_handle() {
+   3) + 10.250 us   |                    update_process_times();
+   3)   0.197 us    |                    profile_tick();
+   3) + 11.031 us   |                  }
+   3)   0.192 us    |                  hrtimer_forward();
+   3) + 15.018 us   |                }
+   3)   0.194 us    |                _raw_spin_lock_irq();
+   3)   0.411 us    |                enqueue_hrtimer();
+   3) + 17.327 us   |              }
+   3)               |              hrtimer_update_next_event() {
+   3)   0.191 us    |                __hrtimer_next_event_base();
+   3)   0.224 us    |                __hrtimer_next_event_base();
+   3)   0.925 us    |              }
+   3)   0.186 us    |              _raw_spin_unlock_irqrestore();
+   3)               |              tick_program_event() {
+   3)               |                clockevents_program_event() {
+   3)   0.204 us    |                  ktime_get();
+   3) + 17.486 us   |                  lapic_next_deadline();
+   3) + 18.506 us   |                }
+   3) + 18.895 us   |              }
+   3) + 39.437 us   |            }
+   3) + 52.177 us   |          }
+   3)               |          irq_exit_rcu() {
+   3)               |            handle_softirqs() {
+   3)               |              rcu_core_si() {
+   3)               |                rcu_core() {
+   3)   0.220 us    |                  note_gp_changes();
+   3)               |                  rcu_accelerate_cbs_unlocked() {
+   3)   0.207 us    |                    _raw_spin_lock();
+   3)   0.958 us    |                    rcu_accelerate_cbs();
+   3)   0.189 us    |                    _raw_spin_unlock();
+   3) + 18.841 us   |                    rcu_gp_kthread_wake();
+   3) + 21.345 us   |                  }
+   3)   0.230 us    |                  rcu_nocb_unlock_irqrestore.part.0();
+   3)   0.205 us    |                  rcu_segcblist_ready_cbs();
+   3)   0.200 us    |                  do_nocb_deferred_wakeup.isra.0();
+   3) + 23.717 us   |                }
+   3) + 24.107 us   |              }
+   3) + 24.579 us   |            }
+   3)   0.194 us    |            sched_core_idle_cpu();
+   3) + 25.532 us   |          }
+   3) ! 363.071 us  |        }
+   3)               |        aead_key_setup_encrypt [mac80211]() {
+   3)               |          crypto_alloc_aead() {
+   3)               |            crypto_alloc_tfm_node() {
+   3)               |              crypto_alg_mod_lookup() {
+   3)               |                crypto_alg_lookup() {
+   3)               |                  down_read() {
+   3)   0.185 us    |                    __cond_resched();
+   3)   0.702 us    |                  }
+   3)               |                  __crypto_alg_lookup() {
+   3)   0.594 us    |                    try_module_get();
+   3)   0.187 us    |                    crypto_mod_get.part.0();
+   3)   8.106 us    |                  }
+   3)   0.196 us    |                  up_read();
+   3)   9.713 us    |                }
+   3) + 10.223 us   |              }
+   3)               |              crypto_create_tfm_node() {
+   3)               |                crypto_alloc_tfmmem.isra.0() {
+   3)   0.183 us    |                  crypto_alg_extsize();
+   3)               |                  __kmalloc_node() {
+   3)   0.180 us    |                    __cond_resched();
+   3)   0.191 us    |                    should_failslab.constprop.0();
+   3)   1.376 us    |                  }
+   3)   2.162 us    |                }
+   3)               |                crypto_aead_init_tfm() {
+   3)               |                  crypto_ccm_init_tfm [ccm]() {
+   3) ! 243.466 us  |                    crypto_spawn_tfm2();
+   3)   4.043 us    |                    crypto_spawn_tfm2();
+   3) ! 248.847 us  |                  }
+   3) ! 249.348 us  |                }
+   3) ! 252.076 us  |              }
+   3) ! 262.938 us  |            }
+   3) ! 263.363 us  |          }
+   3)               |          crypto_aead_setkey() {
+   3)               |            crypto_ccm_setkey [ccm]() {
+   3)               |              crypto_skcipher_setkey() {
+   3)               |                skcipher_setkey_simple() {
+   3)               |                  crypto_cipher_setkey() {
+   3)   1.647 us    |                    aes_set_key [aesni_intel]();
+   3)   2.192 us    |                  }
+   3)   2.530 us    |                }
+   3)   2.885 us    |              }
+   3)               |              crypto_ahash_setkey() {
+   3)               |                crypto_shash_setkey() {
+   3)               |                  crypto_cbcmac_digest_setkey [ccm]() {
+   3)   0.830 us    |                    crypto_cipher_setkey();
+   3)   1.174 us    |                  }
+   3)   1.568 us    |                }
+   3)   1.992 us    |              }
+   3)   5.545 us    |            }
+   3)   5.904 us    |          }
+   3)               |          crypto_aead_setauthsize() {
+   3)   0.182 us    |            crypto_ccm_setauthsize [ccm]();
+   3)   0.610 us    |          }
+   3) ! 270.768 us  |        }
+   3) ! 635.049 us  |      }
+   3)               |      ieee80211_key_link [mac80211]() {
+   3)   0.213 us    |        ieee80211_key_identical [mac80211]();
+   3)   0.187 us    |        increment_tailroom_need_count [mac80211]();
+   3)               |        ieee80211_key_replace [mac80211]() {
+   3)               |          ieee80211_key_enable_hw_accel [mac80211]() {
+   3)   0.190 us    |            __cond_resched();
+   3)   0.899 us    |          }
+   3)   1.396 us    |        }
+   3)               |        ieee80211_debugfs_key_add [mac80211]() {
+   3)               |          debugfs_create_dir() {
+   3)               |            start_creating.part.0() {
+   3)               |              simple_pin_fs() {
+   3)   0.295 us    |                _raw_spin_lock();
+   3)   0.225 us    |                mntget();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   0.186 us    |                mntput();
+   3)   1.771 us    |              }
+   3)               |              down_write() {
+   3)   0.183 us    |                __cond_resched();
+   3)   0.786 us    |              }
+   3)               |              lookup_one_len() {
+   3)               |                lookup_one_common() {
+   3)   0.190 us    |                  full_name_hash();
+   3)               |                  inode_permission() {
+   3)   0.463 us    |                    generic_permission();
+   3)   0.219 us    |                    security_inode_permission();
+   3)   1.230 us    |                  }
+   3)   1.980 us    |                }
+   3)               |                lookup_dcache() {
+   3)               |                  d_lookup() {
+   3)   0.899 us    |                    __d_lookup();
+   3)   1.267 us    |                  }
+   3)   1.629 us    |                }
+   3)               |                __lookup_slow() {
+   3)               |                  d_alloc_parallel() {
+   3)   3.997 us    |                    d_alloc();
+   3)   0.192 us    |                    __rcu_read_lock();
+   3)   0.206 us    |                    __d_lookup_rcu();
+   3)   0.180 us    |                    __rcu_read_unlock();
+   3)   5.541 us    |                  }
+   3)               |                  simple_lookup() {
+   3)   1.219 us    |                    d_add();
+   3)   1.585 us    |                  }
+   3)   7.674 us    |                }
+   3) + 11.970 us   |              }
+   3) + 15.460 us   |            }
+   3)               |            new_inode() {
+   3)               |              alloc_inode() {
+   3)               |                kmem_cache_alloc_lru() {
+   3)   0.178 us    |                  __cond_resched();
+   3)   0.181 us    |                  should_failslab.constprop.0();
+   3)               |                  __memcg_slab_pre_alloc_hook() {
+   3)   0.189 us    |                    __rcu_read_lock();
+   3)   0.188 us    |                    __rcu_read_lock();
+   3)   0.196 us    |                    __rcu_read_unlock();
+   3)   0.190 us    |                    __rcu_read_unlock();
+   3)   0.656 us    |                    memcg_list_lru_alloc();
+   3)   0.190 us    |                    __rcu_read_lock();
+   3)   0.182 us    |                    __rcu_read_unlock();
+   3)   0.285 us    |                    obj_cgroup_charge();
+   3)   3.485 us    |                  }
+   3)               |                  __memcg_slab_post_alloc_hook() {
+   3)   0.265 us    |                    __rcu_read_lock();
+   3)   0.181 us    |                    __rcu_read_unlock();
+   3)   1.416 us    |                    mod_objcg_state();
+   3)   2.589 us    |                  }
+   3)   7.493 us    |                }
+   3)               |                inode_init_always() {
+   3)               |                  make_kuid() {
+   3)   0.233 us    |                    map_id_range_down();
+   3)   0.577 us    |                  }
+   3)               |                  make_kgid() {
+   3)   0.188 us    |                    map_id_range_down();
+   3)   0.537 us    |                  }
+   3)   0.183 us    |                  __init_rwsem();
+   3)   0.186 us    |                  __init_rwsem();
+   3)               |                  security_inode_alloc() {
+   3)   0.473 us    |                    kmem_cache_alloc();
+   3)   0.194 us    |                    apparmor_inode_alloc_security();
+   3)   1.274 us    |                  }
+   3)   3.782 us    |                }
+   3) + 11.784 us   |              }
+   3)   0.185 us    |              _raw_spin_lock();
+   3)   0.182 us    |              _raw_spin_unlock();
+   3)   0.188 us    |              _raw_spin_lock();
+   3)   0.182 us    |              _raw_spin_unlock();
+   3) + 13.482 us   |            }
+   3)   0.184 us    |            get_next_ino();
+   3)               |            simple_inode_init_ts() {
+   3)               |              inode_set_ctime_current() {
+   3)   0.207 us    |                ktime_get_coarse_real_ts64();
+   3)   0.649 us    |              }
+   3)   1.000 us    |            }
+   3)   0.182 us    |            inc_nlink();
+   3)               |            d_instantiate() {
+   3)               |              security_d_instantiate() {
+   3)               |                apparmor_d_instantiate() {
+   3)   0.184 us    |                  _raw_spin_lock();
+   3)   0.194 us    |                  _raw_spin_unlock();
+   3)   1.344 us    |                }
+   3)   1.727 us    |              }
+   3)   0.184 us    |              _raw_spin_lock();
+   3)               |              __d_instantiate() {
+   3)   0.209 us    |                d_flags_for_inode();
+   3)   0.190 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   1.250 us    |              }
+   3)   0.182 us    |              _raw_spin_unlock();
+   3)   4.169 us    |            }
+   3)   0.202 us    |            inc_nlink();
+   3)   0.212 us    |            up_write();
+   3) + 36.505 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.183 us    |                  _raw_spin_lock();
+   3)   0.185 us    |                  mntget();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   0.185 us    |                  mntput();
+   3)   1.536 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.519 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.191 us    |                    full_name_hash();
+   3)   0.705 us    |                    inode_permission();
+   3)   1.396 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.683 us    |                    d_lookup();
+   3)   1.015 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.856 us    |                    d_alloc_parallel();
+   3)   1.049 us    |                    simple_lookup();
+   3)   4.419 us    |                  }
+   3)   7.467 us    |                }
+   3) + 10.181 us   |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.182 us    |                    __cond_resched();
+   3)   0.185 us    |                    should_failslab.constprop.0();
+   3)   1.206 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.497 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.882 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.274 us    |                    make_kuid();
+   3)   0.273 us    |                    make_kgid();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.176 us    |                    __init_rwsem();
+   3)   0.585 us    |                    security_inode_alloc();
+   3)   2.461 us    |                  }
+   3)   5.827 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   0.183 us    |                _raw_spin_lock();
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   7.508 us    |              }
+   3)   0.184 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.521 us    |                }
+   3)   0.852 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.185 us    |                    _raw_spin_lock();
+   3)   0.183 us    |                    _raw_spin_unlock();
+   3)   0.853 us    |                  }
+   3)   1.200 us    |                }
+   3)   0.183 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.205 us    |                  d_flags_for_inode();
+   3)   0.184 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   1.216 us    |                }
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   3.570 us    |              }
+   3)   0.192 us    |              up_write();
+   3) + 23.683 us   |            }
+   3) + 24.028 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.187 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  mntget();
+   3)   0.185 us    |                  _raw_spin_unlock();
+   3)   0.182 us    |                  mntput();
+   3)   1.532 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.515 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.185 us    |                    full_name_hash();
+   3)   0.462 us    |                    inode_permission();
+   3)   1.143 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.666 us    |                    d_lookup();
+   3)   0.999 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.750 us    |                    d_alloc_parallel();
+   3)   1.031 us    |                    simple_lookup();
+   3)   4.272 us    |                  }
+   3)   7.051 us    |                }
+   3)   9.744 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.183 us    |                    __cond_resched();
+   3)   0.186 us    |                    should_failslab.constprop.0();
+   3)   1.206 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.479 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.869 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.265 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.175 us    |                    __init_rwsem();
+   3)   0.575 us    |                    security_inode_alloc();
+   3)   2.423 us    |                  }
+   3)   5.801 us    |                }
+   3)   0.182 us    |                _raw_spin_lock();
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   7.463 us    |              }
+   3)   0.181 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.184 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.523 us    |                }
+   3)   0.855 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.275 us    |                    _raw_spin_lock();
+   3)   0.183 us    |                    _raw_spin_unlock();
+   3)   0.947 us    |                  }
+   3)   1.291 us    |                }
+   3)   0.186 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.187 us    |                  d_flags_for_inode();
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   1.199 us    |                }
+   3)   0.185 us    |                _raw_spin_unlock();
+   3)   3.649 us    |              }
+   3)   0.185 us    |              up_write();
+   3) + 23.195 us   |            }
+   3) + 23.551 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.186 us    |                  _raw_spin_lock();
+   3)   0.185 us    |                  mntget();
+   3)   0.185 us    |                  _raw_spin_unlock();
+   3)   0.183 us    |                  mntput();
+   3)   1.520 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.520 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.184 us    |                    full_name_hash();
+   3)   0.463 us    |                    inode_permission();
+   3)   1.145 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.660 us    |                    d_lookup();
+   3)   0.995 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.744 us    |                    d_alloc_parallel();
+   3)   1.034 us    |                    simple_lookup();
+   3)   4.283 us    |                  }
+   3)   7.060 us    |                }
+   3)   9.756 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.182 us    |                    __cond_resched();
+   3)   0.185 us    |                    should_failslab.constprop.0();
+   3)   1.210 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.622 us    |                    ___slab_alloc();
+   3)   0.570 us    |                    __memcg_slab_post_alloc_hook();
+   3)   3.772 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.265 us    |                    make_kuid();
+   3)   0.276 us    |                    make_kgid();
+   3)   0.185 us    |                    __init_rwsem();
+   3)   0.176 us    |                    __init_rwsem();
+   3)   0.564 us    |                    security_inode_alloc();
+   3)   2.539 us    |                  }
+   3)   6.795 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   8.464 us    |              }
+   3)   0.182 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.528 us    |                }
+   3)   0.861 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.193 us    |                    _raw_spin_lock();
+   3)   0.190 us    |                    _raw_spin_unlock();
+   3)   1.129 us    |                  }
+   3)   1.472 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.186 us    |                  d_flags_for_inode();
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   1.200 us    |                }
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   3.820 us    |              }
+   3)   0.187 us    |              up_write();
+   3) + 24.371 us   |            }
+   3) + 24.727 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.184 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  mntget();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   0.184 us    |                  mntput();
+   3)   1.520 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.517 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.193 us    |                    full_name_hash();
+   3)   0.455 us    |                    inode_permission();
+   3)   1.163 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.566 us    |                    d_lookup();
+   3)   0.899 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.757 us    |                    d_alloc_parallel();
+   3)   1.036 us    |                    simple_lookup();
+   3)   4.301 us    |                  }
+   3)   6.998 us    |                }
+   3)   9.697 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.183 us    |                    __cond_resched();
+   3)   0.185 us    |                    should_failslab.constprop.0();
+   3)   2.628 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.472 us    |                    __memcg_slab_post_alloc_hook();
+   3)   4.466 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.269 us    |                    make_kuid();
+   3)   0.277 us    |                    make_kgid();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.180 us    |                    __init_rwsem();
+   3)   0.568 us    |                    security_inode_alloc();
+   3)   2.442 us    |                  }
+   3)   7.393 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   9.067 us    |              }
+   3)   0.182 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.522 us    |                }
+   3)   0.857 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.186 us    |                    _raw_spin_lock();
+   3)   0.183 us    |                    _raw_spin_unlock();
+   3)   0.860 us    |                  }
+   3)   1.332 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.187 us    |                  d_flags_for_inode();
+   3)   0.186 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   1.202 us    |                }
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   3.699 us    |              }
+   3)   0.186 us    |              up_write();
+   3) + 24.789 us   |            }
+   3) + 25.125 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.184 us    |                  mntput();
+   3)   1.519 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.518 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.187 us    |                    full_name_hash();
+   3)   0.453 us    |                    inode_permission();
+   3)   1.141 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.579 us    |                    d_lookup();
+   3)   0.912 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.762 us    |                    d_alloc_parallel();
+   3)   1.037 us    |                    simple_lookup();
+   3)   4.299 us    |                  }
+   3)   6.987 us    |                }
+   3)   9.678 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.184 us    |                    __cond_resched();
+   3)   0.184 us    |                    should_failslab.constprop.0();
+   3)   1.207 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.931 us    |                    __memcg_slab_post_alloc_hook();
+   3)   3.324 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.275 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.184 us    |                    __init_rwsem();
+   3)   0.176 us    |                    __init_rwsem();
+   3)   0.570 us    |                    security_inode_alloc();
+   3)   2.440 us    |                  }
+   3)   6.250 us    |                }
+   3)   0.183 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.185 us    |                _raw_spin_unlock();
+   3)   7.922 us    |              }
+   3)   0.182 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.185 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.532 us    |                }
+   3)   0.863 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.185 us    |                    _raw_spin_lock();
+   3)   0.183 us    |                    _raw_spin_unlock();
+   3)   0.859 us    |                  }
+   3)   1.210 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.188 us    |                  d_flags_for_inode();
+   3)   0.186 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   1.212 us    |                }
+   3)   0.185 us    |                _raw_spin_unlock();
+   3)   3.717 us    |              }
+   3)   0.186 us    |              up_write();
+   3) + 23.662 us   |            }
+   3) + 23.998 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.186 us    |                  _raw_spin_lock();
+   3)   0.184 us    |                  mntget();
+   3)   0.185 us    |                  _raw_spin_unlock();
+   3)   0.182 us    |                  mntput();
+   3)   1.524 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.517 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.190 us    |                    full_name_hash();
+   3)   0.455 us    |                    inode_permission();
+   3)   1.144 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.664 us    |                    d_lookup();
+   3)   0.997 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.708 us    |                    d_alloc_parallel();
+   3)   1.024 us    |                    simple_lookup();
+   3)   4.235 us    |                  }
+   3)   7.021 us    |                }
+   3)   9.727 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.182 us    |                    __cond_resched();
+   3)   0.184 us    |                    should_failslab.constprop.0();
+   3)   1.206 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.473 us    |                    __memcg_slab_post_alloc_hook();
+   3)   3.018 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.263 us    |                    make_kuid();
+   3)   0.272 us    |                    make_kgid();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.174 us    |                    __init_rwsem();
+   3)   0.567 us    |                    security_inode_alloc();
+   3)   2.416 us    |                  }
+   3)   5.913 us    |                }
+   3)   0.183 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   0.182 us    |                _raw_spin_lock();
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   7.578 us    |              }
+   3)   0.182 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.184 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.518 us    |                }
+   3)   0.852 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.186 us    |                    _raw_spin_lock();
+   3)   0.182 us    |                    _raw_spin_unlock();
+   3)   0.856 us    |                  }
+   3)   1.195 us    |                }
+   3)   0.183 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.187 us    |                  d_flags_for_inode();
+   3)   0.190 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   1.324 us    |                }
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   3.666 us    |              }
+   3)   0.186 us    |              up_write();
+   3) + 23.282 us   |            }
+   3) + 23.625 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.184 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.182 us    |                  mntput();
+   3)   1.514 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.517 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.190 us    |                    full_name_hash();
+   3)   0.453 us    |                    inode_permission();
+   3)   1.142 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.907 us    |                    d_lookup();
+   3)   1.241 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.783 us    |                    d_alloc_parallel();
+   3)   1.044 us    |                    simple_lookup();
+   3)   4.320 us    |                  }
+   3)   7.338 us    |                }
+   3) + 10.010 us   |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.185 us    |                    __cond_resched();
+   3)   0.186 us    |                    should_failslab.constprop.0();
+   3)   1.208 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.464 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.856 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.264 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.176 us    |                    __init_rwsem();
+   3)   0.570 us    |                    security_inode_alloc();
+   3)   2.445 us    |                  }
+   3)   5.786 us    |                }
+   3)   0.186 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   7.460 us    |              }
+   3)   0.184 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.184 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.520 us    |                }
+   3)   0.856 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.186 us    |                    _raw_spin_lock();
+   3)   0.186 us    |                    _raw_spin_unlock();
+   3)   0.859 us    |                  }
+   3)   1.198 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.186 us    |                  d_flags_for_inode();
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.268 us    |                  _raw_spin_unlock();
+   3)   1.293 us    |                }
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   3.639 us    |              }
+   3)   0.186 us    |              up_write();
+   3) + 23.433 us   |            }
+   3) + 23.770 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.187 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  mntget();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   0.181 us    |                  mntput();
+   3)   1.519 us    |                }
+   3)               |                down_write() {
+   3)   0.184 us    |                  __cond_resched();
+   3)   0.532 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.191 us    |                    full_name_hash();
+   3)   0.455 us    |                    inode_permission();
+   3)   1.145 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.838 us    |                    d_lookup();
+   3)   1.172 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.741 us    |                    d_alloc_parallel();
+   3)   1.032 us    |                    simple_lookup();
+   3)   4.273 us    |                  }
+   3)   7.225 us    |                }
+   3)   9.918 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.183 us    |                    __cond_resched();
+   3)   0.185 us    |                    should_failslab.constprop.0();
+   3)   1.209 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.465 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.868 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.265 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.185 us    |                    __init_rwsem();
+   3)   0.176 us    |                    __init_rwsem();
+   3)   0.580 us    |                    security_inode_alloc();
+   3)   2.446 us    |                  }
+   3)   5.799 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.187 us    |                _raw_spin_unlock();
+   3)   7.476 us    |              }
+   3)   0.185 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.523 us    |                }
+   3)   0.857 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.186 us    |                    _raw_spin_lock();
+   3)   0.185 us    |                    _raw_spin_unlock();
+   3)   0.861 us    |                  }
+   3)   1.201 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.193 us    |                  d_flags_for_inode();
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.192 us    |                  _raw_spin_unlock();
+   3)   1.215 us    |                }
+   3)   0.324 us    |                _raw_spin_unlock();
+   3)   3.708 us    |              }
+   3)   0.186 us    |              up_write();
+   3) + 23.435 us   |            }
+   3) + 23.773 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.186 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.182 us    |                  mntput();
+   3)   1.531 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.518 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.190 us    |                    full_name_hash();
+   3)   0.455 us    |                    inode_permission();
+   3)   1.145 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   1.002 us    |                    d_lookup();
+   3)   1.335 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   4.676 us    |                    d_alloc_parallel();
+   3)   1.050 us    |                    simple_lookup();
+   3)   6.226 us    |                  }
+   3)   9.340 us    |                }
+   3) + 12.039 us   |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.183 us    |                    __cond_resched();
+   3)   0.185 us    |                    should_failslab.constprop.0();
+   3)   1.207 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.465 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.854 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.274 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.179 us    |                    __init_rwsem();
+   3)   0.185 us    |                    __init_rwsem();
+   3)   0.568 us    |                    security_inode_alloc();
+   3)   2.423 us    |                  }
+   3)   5.779 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   7.451 us    |              }
+   3)   0.185 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.521 us    |                }
+   3)   0.856 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.184 us    |                    _raw_spin_lock();
+   3)   0.186 us    |                    _raw_spin_unlock();
+   3)   0.860 us    |                  }
+   3)   1.202 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.187 us    |                  d_flags_for_inode();
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.185 us    |                  _raw_spin_unlock();
+   3)   1.207 us    |                }
+   3)   0.194 us    |                _raw_spin_unlock();
+   3)   3.573 us    |              }
+   3)   0.271 us    |              up_write();
+   3) + 25.483 us   |            }
+   3) + 25.827 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.189 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  mntget();
+   3)   0.183 us    |                  _raw_spin_unlock();
+   3)   0.197 us    |                  mntput();
+   3)   1.539 us    |                }
+   3)               |                down_write() {
+   3)   0.184 us    |                  __cond_resched();
+   3)   0.521 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.190 us    |                    full_name_hash();
+   3)   0.456 us    |                    inode_permission();
+   3)   1.151 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.680 us    |                    d_lookup();
+   3)   1.014 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.759 us    |                    d_alloc_parallel();
+   3)   1.036 us    |                    simple_lookup();
+   3)   4.294 us    |                  }
+   3)   7.095 us    |                }
+   3)   9.820 us    |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.183 us    |                    __cond_resched();
+   3)   0.184 us    |                    should_failslab.constprop.0();
+   3)   1.206 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   1.179 us    |                    __memcg_slab_post_alloc_hook();
+   3)   3.581 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.264 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.183 us    |                    __init_rwsem();
+   3)   0.177 us    |                    __init_rwsem();
+   3)   0.560 us    |                    security_inode_alloc();
+   3)   2.414 us    |                  }
+   3)   6.480 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   0.183 us    |                _raw_spin_lock();
+   3)   0.186 us    |                _raw_spin_unlock();
+   3)   8.148 us    |              }
+   3)   0.184 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.521 us    |                }
+   3)   0.856 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.186 us    |                    _raw_spin_lock();
+   3)   0.185 us    |                    _raw_spin_unlock();
+   3)   0.858 us    |                  }
+   3)   1.200 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.193 us    |                  d_flags_for_inode();
+   3)   0.184 us    |                  _raw_spin_lock();
+   3)   0.185 us    |                  _raw_spin_unlock();
+   3)   1.207 us    |                }
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   3.554 us    |              }
+   3)   0.194 us    |              up_write();
+   3) + 23.854 us   |            }
+   3) + 24.210 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.183 us    |                  mntput();
+   3)   1.522 us    |                }
+   3)               |                down_write() {
+   3)   0.184 us    |                  __cond_resched();
+   3)   0.519 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.190 us    |                    full_name_hash();
+   3)   0.456 us    |                    inode_permission();
+   3)   1.142 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.912 us    |                    d_lookup();
+   3)   1.248 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.746 us    |                    d_alloc_parallel();
+   3)   1.037 us    |                    simple_lookup();
+   3)   4.287 us    |                  }
+   3)   7.310 us    |                }
+   3) + 10.002 us   |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.182 us    |                    __cond_resched();
+   3)   0.185 us    |                    should_failslab.constprop.0();
+   3)   1.208 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.477 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.865 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.274 us    |                    make_kuid();
+   3)   0.274 us    |                    make_kgid();
+   3)   0.185 us    |                    __init_rwsem();
+   3)   0.179 us    |                    __init_rwsem();
+   3)   0.560 us    |                    security_inode_alloc();
+   3)   2.418 us    |                  }
+   3)   5.766 us    |                }
+   3)   0.182 us    |                _raw_spin_lock();
+   3)   0.182 us    |                _raw_spin_unlock();
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   7.434 us    |              }
+   3)   0.183 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.184 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.519 us    |                }
+   3)   0.864 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.184 us    |                    _raw_spin_lock();
+   3)   0.184 us    |                    _raw_spin_unlock();
+   3)   0.855 us    |                  }
+   3)   1.195 us    |                }
+   3)   0.185 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.186 us    |                  d_flags_for_inode();
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.182 us    |                  _raw_spin_unlock();
+   3)   1.203 us    |                }
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   3.545 us    |              }
+   3)   0.189 us    |              up_write();
+   3) + 23.317 us   |            }
+   3) + 23.664 us   |          }
+   3)               |          debugfs_create_file() {
+   3)               |            __debugfs_create_file() {
+   3)               |              start_creating.part.0() {
+   3)               |                simple_pin_fs() {
+   3)   0.185 us    |                  _raw_spin_lock();
+   3)   0.183 us    |                  mntget();
+   3)   0.184 us    |                  _raw_spin_unlock();
+   3)   0.182 us    |                  mntput();
+   3)   2.258 us    |                }
+   3)               |                down_write() {
+   3)   0.183 us    |                  __cond_resched();
+   3)   0.517 us    |                }
+   3)               |                lookup_one_len() {
+   3)               |                  lookup_one_common() {
+   3)   0.186 us    |                    full_name_hash();
+   3)   0.457 us    |                    inode_permission();
+   3)   1.142 us    |                  }
+   3)               |                  lookup_dcache() {
+   3)   0.664 us    |                    d_lookup();
+   3)   0.999 us    |                  }
+   3)               |                  __lookup_slow() {
+   3)   2.888 us    |                    d_alloc_parallel();
+   3)   1.039 us    |                    simple_lookup();
+   3)   4.421 us    |                  }
+   3)   7.208 us    |                }
+   3) + 10.642 us   |              }
+   3)               |              new_inode() {
+   3)               |                alloc_inode() {
+   3)               |                  kmem_cache_alloc_lru() {
+   3)   0.183 us    |                    __cond_resched();
+   3)   0.185 us    |                    should_failslab.constprop.0();
+   3)   1.210 us    |                    __memcg_slab_pre_alloc_hook();
+   3)   0.478 us    |                    __memcg_slab_post_alloc_hook();
+   3)   2.875 us    |                  }
+   3)               |                  inode_init_always() {
+   3)   0.266 us    |                    make_kuid();
+   3)   0.275 us    |                    make_kgid();
+   3)   0.185 us    |                    __init_rwsem();
+   3)   0.182 us    |                    __init_rwsem();
+   3)   0.567 us    |                    security_inode_alloc();
+   3)   2.427 us    |                  }
+   3)   5.804 us    |                }
+   3)   0.184 us    |                _raw_spin_lock();
+   3)   0.184 us    |                _raw_spin_unlock();
+   3)   0.185 us    |                _raw_spin_lock();
+   3)   0.185 us    |                _raw_spin_unlock();
+   3)   7.477 us    |              }
+   3)   0.183 us    |              get_next_ino();
+   3)               |              simple_inode_init_ts() {
+   3)               |                inode_set_ctime_current() {
+   3)   0.186 us    |                  ktime_get_coarse_real_ts64();
+   3)   0.521 us    |                }
+   3)   0.854 us    |              }
+   3)               |              d_instantiate() {
+   3)               |                security_d_instantiate() {
+   3)               |                  apparmor_d_instantiate() {
+   3)   0.186 us    |                    _raw_spin_lock();
+   3)   0.183 us    |                    _raw_spin_unlock();
+   3)   0.859 us    |                  }
+   3)   1.200 us    |                }
+   3)   0.186 us    |                _raw_spin_lock();
+   3)               |                __d_instantiate() {
+   3)   0.187 us    |                  d_flags_for_inode();
+   3)   0.184 us    |                  _raw_spin_lock();
+   3)   0.182 us    |                  _raw_spin_unlock();
+   3)   1.202 us    |                }
+   3)   0.183 us    |                _raw_spin_unlock();
+   3)   3.556 us    |              }
+   3)   0.198 us    |              up_write();
+   3) + 24.010 us   |            }
+   3) + 24.349 us   |          }
+   3) ! 330.110 us  |        }
+   3) ! 333.288 us  |      }
+   3) ! 969.529 us  |    }
+   3) ! 974.679 us  |  }
