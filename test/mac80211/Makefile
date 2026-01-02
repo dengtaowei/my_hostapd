@@ -89,7 +89,5 @@ clean:
 	$(MAKE) -C $(KDIR) M=$(PWD) clean
 
 install:
-	sudo insmod mac80211.ko
+	cp mac80211.ko ../install
 
-uninstall:
-	sudo rmmod mac80211

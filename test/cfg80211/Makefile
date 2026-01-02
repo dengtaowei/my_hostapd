@@ -80,7 +80,4 @@ clean:
 	$(MAKE) -C $(KDIR) M=$(PWD) clean
 
 install:
-	sudo insmod cfg80211.ko
-
-uninstall:
-	sudo rmmod cfg80211
+	cp cfg80211.ko ../install

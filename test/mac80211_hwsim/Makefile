@@ -18,7 +18,5 @@ clean:
 	$(MAKE) -C $(KDIR) M=$(PWD) clean
 
 install:
-	sudo insmod mac80211_hwsim.ko
+	cp mac80211_hwsim.ko ../install
 
-uninstall:
-	sudo rmmod mac80211_hwsim
