@@ -1,4 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0
+
+include /boot/config-$(shell uname -r)
+
+
 obj-$(CONFIG_MAC80211) += mac80211.o
 
 # mac80211 objects
@@ -70,3 +74,22 @@ obj-y += tests/
 mac80211-y += wbrf.o
 
 ccflags-y += -DDEBUG
+
+
+KDIR := /lib/modules/$(shell uname -r)/build
+PWD := $(shell pwd)
+
+# add cur dir for include dir
+# ccflags-y += -DDEBUG -I$(src)
+
+all:
+	$(MAKE) -C $(KDIR) M=$(PWD) modules
+
+clean:
+	$(MAKE) -C $(KDIR) M=$(PWD) clean
+
+install:
+	sudo insmod mac80211.ko
+
+uninstall:
+	sudo rmmod mac80211
